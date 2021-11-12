@@ -1,6 +1,5 @@
 package io.github.tuguzt.sql.presentation.view
 
-import io.github.tuguzt.sql.appName
 import io.github.tuguzt.sql.presentation.viewmodel.RegisterViewModel
 import javafx.geometry.Pos
 import tornadofx.*
@@ -8,7 +7,7 @@ import tornadofx.*
 /**
  * Register [view][View] of the application.
  */
-class RegisterView : View("Register - $appName") {
+class RegisterView : View("${FX.messages["register"]} - ${FX.messages["app_name"]}") {
     private val model: RegisterViewModel by inject()
 
     override val root = vbox {
@@ -21,35 +20,41 @@ class RegisterView : View("Register - $appName") {
                         isFillWidth = true
                         percentWidth = 80.0
                     }
-                    fieldset("Officer information") {
-                        field("Name") {
+                    fieldset(messages["officer_information"]) {
+                        field(messages["name"]) {
                             textfield(model.nameProperty).required()
                         }
-                        field("Role") {
+                        field(messages["role"]) {
                             val roles = listOf("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
                             val combobox = combobox(model.roleProperty, roles)
-                            button("Clear").action {
-                                combobox.selectionModel.clearSelection()
+                            button(messages["clear"]) {
+                                enableWhen { !model.roleProperty.isEmpty }
+                                action {
+                                    combobox.selectionModel.clearSelection()
+                                }
                             }
                         }
-                        field("Organization") {
+                        field(messages["organization"]) {
                             val organizations = listOf("Hello", "World")
                             val combobox = combobox(model.organizationProperty, organizations)
-                            button("Clear").action {
-                                combobox.selectionModel.clearSelection()
+                            button(messages["clear"]) {
+                                enableWhen { !model.organizationProperty.isEmpty }
+                                action {
+                                    combobox.selectionModel.clearSelection()
+                                }
                             }
                         }
                     }
-                    fieldset("User information") {
-                        field("Username") {
+                    fieldset(messages["user_information"]) {
+                        field(messages["username"]) {
                             textfield(model.usernameProperty).required()
                         }
-                        field("Password") {
+                        field(messages["password"]) {
                             passwordfield(model.passwordProperty).required()
                         }
                     }
                     buttonbar {
-                        button("Submit") {
+                        button(messages["submit"]) {
                             enableWhen(model.valid)
                             action(model::submit)
                         }
@@ -59,8 +64,8 @@ class RegisterView : View("Register - $appName") {
         }
         hbox {
             alignment = Pos.CENTER
-            label("Already have account? ")
-            hyperlink("Login").action {
+            label(messages["already_have_account"])
+            hyperlink(messages["login"]).action {
                 replaceWith<LoginView>(ViewTransition.Slide(0.2.seconds))
             }
         }

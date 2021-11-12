@@ -6,11 +6,6 @@ import javafx.stage.Stage
 import tornadofx.*
 
 /**
- * Name of this application.
- */
-const val appName = "SQL Practice 5"
-
-/**
  * Main class of the application.
  */
 class Application : App() {

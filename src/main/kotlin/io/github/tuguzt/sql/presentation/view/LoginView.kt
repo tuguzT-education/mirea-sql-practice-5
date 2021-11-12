@@ -1,6 +1,5 @@
 package io.github.tuguzt.sql.presentation.view
 
-import io.github.tuguzt.sql.appName
 import io.github.tuguzt.sql.presentation.viewmodel.LoginViewModel
 import javafx.geometry.Pos
 import tornadofx.*
@@ -8,7 +7,7 @@ import tornadofx.*
 /**
  * Login [view][View] of the application.
  */
-class LoginView : View("Login - $appName") {
+class LoginView : View("${FX.messages["login"]} - ${FX.messages["app_name"]}") {
     private val model: LoginViewModel by inject()
 
     override val root = vbox {
@@ -21,16 +20,16 @@ class LoginView : View("Login - $appName") {
                         isFillWidth = true
                         percentWidth = 80.0
                     }
-                    fieldset("User information") {
-                        field("Username") {
+                    fieldset(messages["user_information"]) {
+                        field(messages["username"]) {
                             textfield(model.usernameProperty).required()
                         }
-                        field("Password") {
+                        field(messages["password"]) {
                             passwordfield(model.passwordProperty).required()
                         }
                     }
                     buttonbar {
-                        button("Submit") {
+                        button(messages["submit"]) {
                             enableWhen(model.valid)
                             action(model::submit)
                         }
@@ -40,8 +39,8 @@ class LoginView : View("Login - $appName") {
         }
         hbox {
             alignment = Pos.CENTER
-            label("No account? ")
-            hyperlink("Register").action {
+            label(messages["no_account"])
+            hyperlink(messages["register"]).action {
                 replaceWith<RegisterView>(ViewTransition.Slide(0.2.seconds))
             }
         }
