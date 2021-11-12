@@ -1,25 +1,15 @@
 package io.github.tuguzt.sql.presentation.view
 
 import io.github.tuguzt.sql.appName
-import javafx.beans.property.SimpleStringProperty
+import io.github.tuguzt.sql.presentation.viewmodel.RegisterViewModel
 import javafx.geometry.Pos
 import tornadofx.*
 
+/**
+ * Register [view][View] of the application.
+ */
 class RegisterView : View("Register - $appName") {
-    private val nameProperty = SimpleStringProperty()
-    private var name: String? by nameProperty
-
-    private val usernameProperty = SimpleStringProperty()
-    private var username: String? by usernameProperty
-
-    private val passwordProperty = SimpleStringProperty()
-    private var password: String? by passwordProperty
-
-    private val roleProperty = SimpleStringProperty()
-    private var role: String? by roleProperty
-
-    private val organizationProperty = SimpleStringProperty()
-    private var organization: String? by organizationProperty
+    private val model: RegisterViewModel by inject()
 
     override val root = vbox {
         alignment = Pos.CENTER
@@ -33,18 +23,18 @@ class RegisterView : View("Register - $appName") {
                     }
                     fieldset("Officer information") {
                         field("Name") {
-                            textfield(nameProperty)
+                            textfield(model.nameProperty).required()
                         }
                         field("Role") {
                             val roles = listOf("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
-                            val combobox = combobox(roleProperty, roles)
+                            val combobox = combobox(model.roleProperty, roles)
                             button("Clear").action {
                                 combobox.selectionModel.clearSelection()
                             }
                         }
                         field("Organization") {
                             val organizations = listOf("Hello", "World")
-                            val combobox = combobox(organizationProperty, organizations)
+                            val combobox = combobox(model.organizationProperty, organizations)
                             button("Clear").action {
                                 combobox.selectionModel.clearSelection()
                             }
@@ -52,14 +42,17 @@ class RegisterView : View("Register - $appName") {
                     }
                     fieldset("User information") {
                         field("Username") {
-                            textfield(usernameProperty)
+                            textfield(model.usernameProperty).required()
                         }
                         field("Password") {
-                            passwordfield(passwordProperty)
+                            passwordfield(model.passwordProperty).required()
                         }
                     }
                     buttonbar {
-                        button("Submit").action(::submit)
+                        button("Submit") {
+                            enableWhen(model.valid)
+                            action(model::submit)
+                        }
                     }
                 }
             }
@@ -68,19 +61,8 @@ class RegisterView : View("Register - $appName") {
             alignment = Pos.CENTER
             label("Already have account? ")
             hyperlink("Login").action {
-                replaceWith(LoginView::class)
+                replaceWith<LoginView>(ViewTransition.Slide(0.2.seconds))
             }
         }
-    }
-
-    private fun submit() {
-        val name = name.orEmpty()
-        val role = role.orEmpty()
-        val organization = organization.orEmpty()
-        val username = username.orEmpty()
-        val password = password.orEmpty()
-        println("name: '$name', role: '$role', organization: '$organization', " +
-                "username: '$username', password: '$password'")
-        TODO("submit register is not implemented")
     }
 }

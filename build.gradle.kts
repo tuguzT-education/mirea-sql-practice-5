@@ -26,9 +26,18 @@ repositories {
 }
 
 dependencies {
+    // Kotlin
     implementation(kotlin("stdlib"))
+    implementation(kotlin("reflect"))
+
+    // TornadoFX
     implementation("no.tornado:tornadofx:1.7.20")
 
+    // Kotlin extensions
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.5.2")
+
+    // Testing
     testImplementation(kotlin("test"))
 }
 

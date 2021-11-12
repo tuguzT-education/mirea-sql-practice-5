@@ -1,16 +1,15 @@
 package io.github.tuguzt.sql.presentation.view
 
 import io.github.tuguzt.sql.appName
-import javafx.beans.property.SimpleStringProperty
+import io.github.tuguzt.sql.presentation.viewmodel.LoginViewModel
 import javafx.geometry.Pos
 import tornadofx.*
 
+/**
+ * Login [view][View] of the application.
+ */
 class LoginView : View("Login - $appName") {
-    private val usernameProperty = SimpleStringProperty()
-    private var username: String? by usernameProperty
-
-    private val passwordProperty = SimpleStringProperty()
-    private var password: String? by passwordProperty
+    private val model: LoginViewModel by inject()
 
     override val root = vbox {
         alignment = Pos.CENTER
@@ -24,14 +23,17 @@ class LoginView : View("Login - $appName") {
                     }
                     fieldset("User information") {
                         field("Username") {
-                            textfield(usernameProperty)
+                            textfield(model.usernameProperty).required()
                         }
                         field("Password") {
-                            passwordfield(passwordProperty)
+                            passwordfield(model.passwordProperty).required()
                         }
                     }
                     buttonbar {
-                        button("Submit").action(::submit)
+                        button("Submit") {
+                            enableWhen(model.valid)
+                            action(model::submit)
+                        }
                     }
                 }
             }
@@ -40,15 +42,8 @@ class LoginView : View("Login - $appName") {
             alignment = Pos.CENTER
             label("No account? ")
             hyperlink("Register").action {
-                replaceWith(RegisterView::class)
+                replaceWith<RegisterView>(ViewTransition.Slide(0.2.seconds))
             }
         }
-    }
-
-    private fun submit() {
-        val username = username.orEmpty()
-        val password = password.orEmpty()
-        println("username: '$username', password: '$password'")
-        TODO("submit login is not implemented")
     }
 }
