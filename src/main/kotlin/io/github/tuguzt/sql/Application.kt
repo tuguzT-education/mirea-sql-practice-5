@@ -10,12 +10,9 @@ import tornadofx.*
  */
 class Application : App() {
     override val primaryView = kotlin.run {
-        val isUserFound = false
-        if (isUserFound) {
-            MainView::class
-        } else {
-            RegisterView::class
-        }
+        val userKey = config["user_key"]?.toString()
+        val isUserFound = !userKey.isNullOrBlank()
+        if (isUserFound) MainView::class else RegisterView::class
     }
 
     override fun start(stage: Stage) {

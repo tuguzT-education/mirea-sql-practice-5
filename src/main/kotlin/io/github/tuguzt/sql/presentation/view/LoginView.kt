@@ -1,7 +1,7 @@
 package io.github.tuguzt.sql.presentation.view
 
 import io.github.tuguzt.sql.presentation.viewmodel.LoginViewModel
-import javafx.geometry.Pos
+import javafx.geometry.Pos.CENTER
 import tornadofx.*
 
 /**
@@ -10,10 +10,9 @@ import tornadofx.*
 class LoginView : View("${FX.messages["login"]} - ${FX.messages["app_name"]}") {
     private val model: LoginViewModel by inject()
 
-    override val root = vbox {
-        alignment = Pos.CENTER
+    override val root = vbox(alignment = CENTER) {
         gridpane {
-            alignment = Pos.CENTER
+            alignment = CENTER
             row {
                 form {
                     gridpaneColumnConstraints {
@@ -37,8 +36,7 @@ class LoginView : View("${FX.messages["login"]} - ${FX.messages["app_name"]}") {
                 }
             }
         }
-        hbox {
-            alignment = Pos.CENTER
+        hbox(alignment = CENTER) {
             label(messages["no_account"])
             hyperlink(messages["register"]).action {
                 replaceWith<RegisterView>(ViewTransition.Slide(0.2.seconds))
