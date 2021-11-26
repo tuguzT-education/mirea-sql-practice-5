@@ -23,9 +23,17 @@ javafx {
 
 repositories {
     mavenCentral()
+    maven(url = "https://jitpack.io")
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor(0, "seconds")
 }
 
 dependencies {
+    // Domain layer
+    implementation("com.github.tuguzT:sql_practice_5_domain:main-SNAPSHOT")
+
     // Kotlin
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
