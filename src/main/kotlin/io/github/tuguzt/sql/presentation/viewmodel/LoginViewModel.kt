@@ -1,6 +1,7 @@
 package io.github.tuguzt.sql.presentation.viewmodel
 
 import io.github.tuguzt.sql.presentation.view.LoginView
+import tornadofx.Rest
 import tornadofx.ViewModel
 import tornadofx.getProperty
 import tornadofx.property
@@ -9,6 +10,8 @@ import tornadofx.property
  * [View model][ViewModel] subclass of the [login view][LoginView].
  */
 class LoginViewModel : ViewModel() {
+    private val api: Rest by inject()
+
     /**
      * Property for username text field.
      */

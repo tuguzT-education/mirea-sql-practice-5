@@ -1,7 +1,10 @@
 package io.github.tuguzt.sql.repository.model
 
 import io.github.tuguzt.sql.domain.model.GameAsset
-import tornadofx.*
+import tornadofx.JsonBuilder
+import tornadofx.JsonModel
+import tornadofx.jsonModel
+import tornadofx.string
 import javax.json.JsonObject
 
 class GameAssetEntity(

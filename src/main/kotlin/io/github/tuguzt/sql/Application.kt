@@ -4,12 +4,19 @@ import io.github.tuguzt.sql.presentation.view.MainView
 import io.github.tuguzt.sql.presentation.view.RegisterView
 import javafx.stage.Stage
 import tornadofx.App
+import tornadofx.Rest
 import tornadofx.launch
 
 /**
  * Main class of the application.
  */
 class Application : App() {
+    private val api: Rest by inject()
+
+    init {
+        api.baseURI = "https://tuguzt-sql-practice-5.herokuapp.com"
+    }
+
     override val primaryView = kotlin.run {
         val userKey = config["user_key"]?.toString()
         val isUserFound = !userKey.isNullOrBlank()
