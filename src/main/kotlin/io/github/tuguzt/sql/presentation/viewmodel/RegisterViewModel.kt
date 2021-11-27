@@ -12,39 +12,21 @@ import tornadofx.property
 class RegisterViewModel : ViewModel() {
     private val api: Rest by inject()
 
-    /**
-     * Property for name text field.
-     */
-    val nameProperty get() = getProperty(RegisterViewModel::name)
     var name: String by property("")
+    inline val nameProperty get() = getProperty(RegisterViewModel::name)
 
-    /**
-     * Property for username text field.
-     */
-    val usernameProperty get() = getProperty(RegisterViewModel::username)
     var username: String by property("")
+    inline val usernameProperty get() = getProperty(RegisterViewModel::username)
 
-    /**
-     * Property for password text field.
-     */
-    val passwordProperty get() = getProperty(RegisterViewModel::password)
     var password: String by property("")
+    inline val passwordProperty get() = getProperty(RegisterViewModel::password)
 
-    /**
-     * Property for role combobox.
-     */
-    val roleProperty get() = getProperty(RegisterViewModel::role)
     var role: String by property("")
+    inline val roleProperty get() = getProperty(RegisterViewModel::role)
 
-    /**
-     * Property for organization combobox.
-     */
-    val organizationProperty get() = getProperty(RegisterViewModel::organization)
     var organization: String by property("")
+    inline val organizationProperty get() = getProperty(RegisterViewModel::organization)
 
-    /**
-     * Submits given [name], [username], [password], [role] and [organization].
-     */
     fun submit() {
         val name = name.trim()
         val role = role.trim()

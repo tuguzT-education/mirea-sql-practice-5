@@ -12,21 +12,12 @@ import tornadofx.property
 class LoginViewModel : ViewModel() {
     private val api: Rest by inject()
 
-    /**
-     * Property for username text field.
-     */
-    val usernameProperty get() = getProperty(LoginViewModel::username)
     var username: String by property("")
+    inline val usernameProperty get() = getProperty(LoginViewModel::username)
 
-    /**
-     * Property for password text field.
-     */
-    val passwordProperty get() = getProperty(LoginViewModel::password)
     var password: String by property("")
+    inline val passwordProperty get() = getProperty(LoginViewModel::password)
 
-    /**
-     * Submits given [username] and [password].
-     */
     fun submit() {
         val username = username.trim()
         val password = password
