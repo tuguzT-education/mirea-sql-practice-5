@@ -1,8 +1,9 @@
 package io.github.tuguzt.sql.presentation.viewmodel
 
 import io.github.tuguzt.sql.presentation.view.RegisterView
-import javafx.beans.property.SimpleStringProperty
-import tornadofx.*
+import tornadofx.ViewModel
+import tornadofx.getProperty
+import tornadofx.property
 
 /**
  * [View model][ViewModel] subclass of the [register view][RegisterView].
@@ -11,46 +12,43 @@ class RegisterViewModel : ViewModel() {
     /**
      * Property for name text field.
      */
-    val nameProperty = bind { SimpleStringProperty() }
-    val name: String? by nameProperty
+    val nameProperty get() = getProperty(RegisterViewModel::name)
+    var name: String by property("")
 
     /**
      * Property for username text field.
      */
-    val usernameProperty = bind { SimpleStringProperty() }
-    val username: String? by usernameProperty
+    val usernameProperty get() = getProperty(RegisterViewModel::username)
+    var username: String by property("")
 
     /**
      * Property for password text field.
      */
-    val passwordProperty = bind { SimpleStringProperty() }
-    val password: String? by passwordProperty
+    val passwordProperty get() = getProperty(RegisterViewModel::password)
+    var password: String by property("")
 
     /**
      * Property for role combobox.
      */
-    val roleProperty = bind { SimpleStringProperty() }
-    val role: String? by roleProperty
+    val roleProperty get() = getProperty(RegisterViewModel::role)
+    var role: String by property("")
 
     /**
      * Property for organization combobox.
      */
-    val organizationProperty = bind { SimpleStringProperty() }
-    val organization: String? by organizationProperty
+    val organizationProperty get() = getProperty(RegisterViewModel::organization)
+    var organization: String by property("")
 
     /**
      * Submits given [name], [username], [password], [role] and [organization].
      */
     fun submit() {
-        val name = name.orEmpty()
-        val role = role.orEmpty()
-        val organization = organization.orEmpty()
-        val username = username.orEmpty()
-        val password = password.orEmpty()
-        println(
-            "name: '$name', role: '$role', organization: '$organization', " +
-                    "username: '$username', password: '$password'"
-        )
+        val name = name.trim()
+        val role = role.trim()
+        val organization = organization.trim()
+        val username = username.trim()
+        val password = password
+        println("name: '$name', role: '$role', organization: '$organization', username: '$username', password: '$password'")
         TODO("submit register is not implemented")
     }
 }

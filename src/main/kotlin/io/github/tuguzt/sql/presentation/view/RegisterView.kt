@@ -27,7 +27,7 @@ class RegisterView : View("${FX.messages["register"]} - ${FX.messages["app_name"
                             val roles = listOf("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
                             val combobox = combobox(model.roleProperty, roles)
                             button(messages["clear"]) {
-                                enableWhen { !model.roleProperty.isEmpty }
+                                enableWhen { !model.roleProperty.isBlank() }
                                 action {
                                     combobox.selectionModel.clearSelection()
                                 }
@@ -37,7 +37,7 @@ class RegisterView : View("${FX.messages["register"]} - ${FX.messages["app_name"
                             val organizations = listOf("Hello", "World")
                             val combobox = combobox(model.organizationProperty, organizations)
                             button(messages["clear"]) {
-                                enableWhen { !model.organizationProperty.isEmpty }
+                                enableWhen { !model.organizationProperty.isBlank() }
                                 action {
                                     combobox.selectionModel.clearSelection()
                                 }

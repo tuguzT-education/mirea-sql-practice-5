@@ -1,6 +1,9 @@
 package io.github.tuguzt.sql.presentation.view
 
-import tornadofx.*
+import tornadofx.FX
+import tornadofx.View
+import tornadofx.get
+import tornadofx.stackpane
 
 /**
  * Main [view][View] of the application.
