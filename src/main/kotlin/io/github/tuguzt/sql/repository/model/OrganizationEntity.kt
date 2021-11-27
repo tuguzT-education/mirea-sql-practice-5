@@ -5,13 +5,31 @@ import tornadofx.*
 import javax.json.JsonObject
 
 class OrganizationEntity(
-    override var name: String,
-    override var description: String,
-    override var type: OrganizationTypeEntity,
-    override var testDocument: TestDocumentEntity?,
-    override var gameProjects: Set<GameProjectEntity>,
-    override var officers: Set<OfficerEntity>,
+    name: String = "",
+    description: String = "",
+    type: OrganizationTypeEntity = OrganizationTypeEntity(),
+    testDocument: TestDocumentEntity? = null,
+    gameProjects: Set<GameProjectEntity> = setOf(),
+    officers: Set<OfficerEntity> = setOf(),
 ) : Organization, JsonModel {
+    override var name: String by property(name)
+    inline val nameProperty get() = getProperty(OrganizationEntity::name)
+
+    override var description: String by property(description)
+    inline val descriptionProperty get() = getProperty(OrganizationEntity::description)
+
+    override var type: OrganizationTypeEntity by property(type)
+    inline val typeProperty get() = getProperty(OrganizationEntity::type)
+
+    override var testDocument: TestDocumentEntity? by property(testDocument)
+    inline val testDocumentProperty get() = getProperty(OrganizationEntity::testDocument)
+
+    override var gameProjects: Set<GameProjectEntity> by property(gameProjects)
+    inline val gameProjectsProperty get() = getProperty(OrganizationEntity::gameProjects)
+
+    override var officers: Set<OfficerEntity> by property(officers)
+    inline val officersProperty get() = getProperty(OrganizationEntity::officers)
+
     override fun updateModel(json: JsonObject) = with(json) {
         name = requireNotNull(string("name"))
         description = requireNotNull(string("description"))

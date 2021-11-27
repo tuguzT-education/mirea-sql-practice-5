@@ -1,12 +1,13 @@
 package io.github.tuguzt.sql.repository.model
 
 import io.github.tuguzt.sql.domain.model.OfficerRole
-import tornadofx.JsonBuilder
-import tornadofx.JsonModel
-import tornadofx.string
+import tornadofx.*
 import javax.json.JsonObject
 
-class OfficerRoleEntity(override var name: String) : OfficerRole, JsonModel {
+class OfficerRoleEntity(name: String = "") : OfficerRole, JsonModel {
+    override var name: String by property(name)
+    inline val nameProperty get() = getProperty(OfficerRoleEntity::name)
+
     override fun updateModel(json: JsonObject) = with(json) {
         name = requireNotNull(string("name"))
     }

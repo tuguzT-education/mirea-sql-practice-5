@@ -1,17 +1,23 @@
 package io.github.tuguzt.sql.repository.model
 
 import io.github.tuguzt.sql.domain.model.User
-import tornadofx.JsonBuilder
-import tornadofx.JsonModel
-import tornadofx.jsonModel
-import tornadofx.string
+import tornadofx.*
 import javax.json.JsonObject
 
 class UserEntity(
-    override var login: String,
-    override var passwordEncrypted: String,
-    override var officer: OfficerEntity?,
+    login: String = "",
+    passwordEncrypted: String = "",
+    officer: OfficerEntity? = null,
 ) : User, JsonModel {
+    override var login: String by property(login)
+    inline val loginProperty get() = getProperty(UserEntity::login)
+
+    override var passwordEncrypted: String by property(passwordEncrypted)
+    inline val passwordEncryptedProperty get() = getProperty(UserEntity::passwordEncrypted)
+
+    override var officer: OfficerEntity? by property(officer)
+    inline val officerProperty get() = getProperty(UserEntity::officer)
+
     override fun updateModel(json: JsonObject) = with(json) {
         login = requireNotNull(string("login"))
         officer = requireNotNull(jsonModel("officer"))
