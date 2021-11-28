@@ -8,7 +8,11 @@ class GameProjectDocumentationEntity(
     businessPlan: String = "",
     designDocument: String = "",
     vision: String = "",
+    id: Int = 0,
 ) : GameProjectDocumentation, JsonModel {
+    private var _id = id
+    override val id get() = _id
+
     override var businessPlan: String by property(businessPlan)
     inline val businessPlanProperty get() = getProperty(GameProjectDocumentationEntity::businessPlan)
 
@@ -19,14 +23,26 @@ class GameProjectDocumentationEntity(
     inline val visionProperty get() = getProperty(GameProjectDocumentationEntity::vision)
 
     override fun updateModel(json: JsonObject) = with(json) {
+        _id = requireNotNull(int("id"))
         businessPlan = requireNotNull(string("business_plan"))
         designDocument = requireNotNull(string("design_document"))
         vision = requireNotNull(string("vision"))
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
+        add("id", id)
         add("business_plan", businessPlan)
         add("design_document", designDocument)
         add("vision", vision)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as GameProjectDocumentationEntity
+        return id == other.id
+    }
+
+    override fun hashCode() = id
 }

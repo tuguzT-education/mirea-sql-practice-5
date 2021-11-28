@@ -1,10 +1,7 @@
 package io.github.tuguzt.sql.presentation.viewmodel
 
 import io.github.tuguzt.sql.presentation.view.RegisterView
-import tornadofx.Rest
-import tornadofx.ViewModel
-import tornadofx.getProperty
-import tornadofx.property
+import tornadofx.*
 
 /**
  * [View model][ViewModel] subclass of the [register view][RegisterView].

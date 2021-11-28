@@ -3,7 +3,7 @@ package io.github.tuguzt.sql.presentation.viewmodel
 import io.github.tuguzt.sql.repository.model.GameAssetEntity
 import io.github.tuguzt.sql.repository.model.GameAssetTypeEntity
 import javafx.beans.property.Property
-import tornadofx.ItemViewModel
+import tornadofx.*
 
 class GameAssetModel(gameAsset: GameAssetEntity) : ItemViewModel<GameAssetEntity>(gameAsset) {
     val dataUri: Property<String> = bind(GameAssetEntity::dataUriProperty)

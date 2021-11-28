@@ -1,8 +1,6 @@
 package io.github.tuguzt.sql.presentation.viewmodel
 
-import tornadofx.ViewModel
-import tornadofx.getProperty
-import tornadofx.property
+import tornadofx.*
 import java.io.File
 
 class GameAssetEditModel : ViewModel() {

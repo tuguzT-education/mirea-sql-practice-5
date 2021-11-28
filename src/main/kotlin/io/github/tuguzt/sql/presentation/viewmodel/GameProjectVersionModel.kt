@@ -2,7 +2,7 @@ package io.github.tuguzt.sql.presentation.viewmodel
 
 import io.github.tuguzt.sql.repository.model.GameProjectVersionEntity
 import javafx.beans.property.Property
-import tornadofx.ItemViewModel
+import tornadofx.*
 
 class GameProjectVersionModel(gameProjectVersion: GameProjectVersionEntity) :
     ItemViewModel<GameProjectVersionEntity>(gameProjectVersion) {

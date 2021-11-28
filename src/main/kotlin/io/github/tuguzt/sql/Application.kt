@@ -3,9 +3,7 @@ package io.github.tuguzt.sql
 import io.github.tuguzt.sql.presentation.view.MainView
 import io.github.tuguzt.sql.presentation.view.RegisterView
 import javafx.stage.Stage
-import tornadofx.App
-import tornadofx.Rest
-import tornadofx.launch
+import tornadofx.*
 
 /**
  * Main class of the application.

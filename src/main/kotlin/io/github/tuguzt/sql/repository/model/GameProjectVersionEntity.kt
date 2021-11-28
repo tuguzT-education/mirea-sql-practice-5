@@ -10,7 +10,11 @@ class GameProjectVersionEntity(
     minor: Int = 0,
     patch: Int = 0,
     metadata: String = "",
+    id: Int = 0,
 ) : GameProjectVersion, JsonModel {
+    private var _id = id
+    override val id get() = _id
+
     override var hash: String by property(hash)
     inline val hashProperty get() = getProperty(GameProjectVersionEntity::hash)
 
@@ -27,6 +31,7 @@ class GameProjectVersionEntity(
     inline val metadataProperty get() = getProperty(GameProjectVersionEntity::metadata)
 
     override fun updateModel(json: JsonObject) = with(json) {
+        _id = requireNotNull(int("id"))
         hash = requireNotNull(string("hash"))
         major = requireNotNull(int("major"))
         minor = requireNotNull(int("minor"))
@@ -35,10 +40,21 @@ class GameProjectVersionEntity(
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
+        add("id", id)
         add("hash", hash)
         add("major", major)
         add("minor", minor)
         add("patch", patch)
         add("metadata", metadata)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as GameProjectVersionEntity
+        return id == other.id
+    }
+
+    override fun hashCode() = id
 }

@@ -11,7 +11,11 @@ class OrganizationEntity(
     testDocument: TestDocumentEntity? = null,
     gameProjects: Set<GameProjectEntity> = setOf(),
     officers: Set<OfficerEntity> = setOf(),
+    id: Int = 0,
 ) : Organization, JsonModel {
+    private var _id = id
+    override val id get() = _id
+
     override var name: String by property(name)
     inline val nameProperty get() = getProperty(OrganizationEntity::name)
 
@@ -31,6 +35,7 @@ class OrganizationEntity(
     inline val officersProperty get() = getProperty(OrganizationEntity::officers)
 
     override fun updateModel(json: JsonObject) = with(json) {
+        _id = requireNotNull(int("id"))
         name = requireNotNull(string("name"))
         description = requireNotNull(string("description"))
         type = requireNotNull(jsonModel("type"))
@@ -40,6 +45,7 @@ class OrganizationEntity(
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
+        add("id", id)
         add("name", name)
         add("description", description)
         add("type", type)
@@ -47,4 +53,14 @@ class OrganizationEntity(
         add("game_projects", gameProjects.toJSON())
         add("officers", officers.toJSON())
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as OrganizationEntity
+        return id == other.id
+    }
+
+    override fun hashCode() = id
 }

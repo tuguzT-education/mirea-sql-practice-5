@@ -9,7 +9,10 @@ class GameAssetEntity(
     description: String = "",
     dataUri: String = "",
     type: GameAssetTypeEntity = GameAssetTypeEntity(),
+    id: Int = 0,
 ) : GameAsset, JsonModel {
+    private var _id = id
+    override val id get() = _id
 
     override var dataUri: String by property(dataUri)
     val dataUriProperty get() = getProperty(GameAssetEntity::dataUri)
@@ -24,6 +27,7 @@ class GameAssetEntity(
     inline val typeProperty get() = getProperty(GameAssetEntity::type)
 
     override fun updateModel(json: JsonObject) = with(json) {
+        _id = requireNotNull(int("id"))
         dataUri = requireNotNull(string("data_uri"))
         description = requireNotNull(string("description"))
         name = requireNotNull(string("name"))
@@ -31,9 +35,20 @@ class GameAssetEntity(
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
+        add("id", id)
         add("data_uri", dataUri)
         add("description", description)
         add("name", name)
         add("type", type)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as GameAssetEntity
+        return id == other.id
+    }
+
+    override fun hashCode() = id
 }

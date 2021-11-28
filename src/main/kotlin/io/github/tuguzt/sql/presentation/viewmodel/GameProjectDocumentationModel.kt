@@ -2,7 +2,7 @@ package io.github.tuguzt.sql.presentation.viewmodel
 
 import io.github.tuguzt.sql.repository.model.GameProjectDocumentationEntity
 import javafx.beans.property.Property
-import tornadofx.ItemViewModel
+import tornadofx.*
 
 class GameProjectDocumentationModel(gameProjectDocumentation: GameProjectDocumentationEntity) :
     ItemViewModel<GameProjectDocumentationEntity>(gameProjectDocumentation) {

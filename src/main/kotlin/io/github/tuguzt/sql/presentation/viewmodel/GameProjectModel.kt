@@ -2,7 +2,7 @@ package io.github.tuguzt.sql.presentation.viewmodel
 
 import io.github.tuguzt.sql.repository.model.*
 import javafx.beans.property.Property
-import tornadofx.ItemViewModel
+import tornadofx.*
 
 class GameProjectModel(gameProject: GameProjectEntity) : ItemViewModel<GameProjectEntity>(gameProject) {
     val name: Property<String> = bind(GameProjectEntity::nameProperty)
