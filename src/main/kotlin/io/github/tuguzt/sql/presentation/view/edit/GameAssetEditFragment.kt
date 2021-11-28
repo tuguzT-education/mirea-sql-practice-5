@@ -1,18 +1,18 @@
 package io.github.tuguzt.sql.presentation.view.edit
 
 import io.github.tuguzt.sql.presentation.view.converter.FileStringConverter
-import io.github.tuguzt.sql.presentation.viewmodel.GameAssetModel
 import io.github.tuguzt.sql.presentation.viewmodel.edit.GameAssetEditModel
+import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetModel
 import javafx.stage.FileChooser.ExtensionFilter
 import tornadofx.*
 import java.io.File
 import java.net.URI
 
-class GameAssetEditFragment(private val gameAssetModel: GameAssetModel) : Fragment(FX.messages["edit_game_asset"]) {
+class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(FX.messages["edit_game_asset"]) {
     private val model: GameAssetEditModel by inject()
 
     init {
-        val string = requireNotNull(gameAssetModel.dataUri.value)
+        val string = requireNotNull(assetModel.dataUri.value)
         val uri = URI(string)
         model.selectedFile = File(uri)
     }
@@ -20,10 +20,10 @@ class GameAssetEditFragment(private val gameAssetModel: GameAssetModel) : Fragme
     override val root = form {
         fieldset {
             field(messages["name"]) {
-                textfield(gameAssetModel.name).required()
+                textfield(assetModel.name).required()
             }
             field(messages["description"]) {
-                textarea(gameAssetModel.description).required()
+                textarea(assetModel.description).required()
             }
             field(messages["data"]) {
                 hyperlink(messages["choose_file"]) {
@@ -31,7 +31,7 @@ class GameAssetEditFragment(private val gameAssetModel: GameAssetModel) : Fragme
                     model.addValidator(this, model.selectedFileProperty) {
                         if (it == null) error(messages["file_must_be_chosen"]) else null
                     }
-                    gameAssetModel.addValidator(this, gameAssetModel.dataUri) {
+                    assetModel.addValidator(this, assetModel.dataUri) {
                         if (it == null) error(messages["file_must_be_chosen"]) else null
                     }
                 }
@@ -39,20 +39,20 @@ class GameAssetEditFragment(private val gameAssetModel: GameAssetModel) : Fragme
                 button(messages["clear"]) {
                     enableWhen(model::valid)
                     action {
-                        gameAssetModel.dataUri.value = null
+                        assetModel.dataUri.value = null
                         model.selectedFile = null
                     }
                 }
             }
             field(messages["type"]) {
-                combobox(gameAssetModel.type) {
+                combobox(assetModel.type) {
                     // TODO
                 }
             }
             buttonbar {
                 button(messages["submit"]) {
                     enableWhen {
-                        (gameAssetModel.dirty and gameAssetModel.valid) or (model.dirty and model.valid)
+                        (assetModel.dirty and assetModel.valid) or (model.dirty and model.valid)
                     }
                     action(::submit)
                 }
@@ -70,18 +70,18 @@ class GameAssetEditFragment(private val gameAssetModel: GameAssetModel) : Fragme
             mode = FileChooserMode.Single,
         ).firstOrNull()
         file?.let {
-            gameAssetModel.dataUri.value = it.toURI().toString()
+            assetModel.dataUri.value = it.toURI().toString()
             model.selectedFile = it
         }
     }
 
     private fun submit() {
-        gameAssetModel.commit()
+        assetModel.commit()
         close()
     }
 
     private fun cancel() {
-        gameAssetModel.rollback()
+        assetModel.rollback()
         close()
     }
 }

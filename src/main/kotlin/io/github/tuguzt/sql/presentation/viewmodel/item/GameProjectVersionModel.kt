@@ -1,4 +1,4 @@
-package io.github.tuguzt.sql.presentation.viewmodel
+package io.github.tuguzt.sql.presentation.viewmodel.item
 
 import io.github.tuguzt.sql.MutableProperty
 import io.github.tuguzt.sql.repository.model.GameProjectVersionEntity

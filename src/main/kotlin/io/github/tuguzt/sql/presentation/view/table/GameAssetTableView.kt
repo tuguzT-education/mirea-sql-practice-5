@@ -1,10 +1,9 @@
 package io.github.tuguzt.sql.presentation.view.table
 
 import io.github.tuguzt.sql.presentation.view.edit.GameAssetEditFragment
-import io.github.tuguzt.sql.presentation.viewmodel.GameAssetModel
+import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTableModel
 import io.github.tuguzt.sql.repository.model.GameAssetEntity
-import javafx.geometry.Pos
 import javafx.scene.control.TableRow
 import tornadofx.*
 
