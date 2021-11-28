@@ -1,7 +1,7 @@
-package io.github.tuguzt.sql.presentation.view
+package io.github.tuguzt.sql.presentation.view.edit
 
 import io.github.tuguzt.sql.presentation.view.converter.FileStringConverter
-import io.github.tuguzt.sql.presentation.viewmodel.GameAssetEditModel
+import io.github.tuguzt.sql.presentation.viewmodel.edit.GameAssetEditModel
 import io.github.tuguzt.sql.presentation.viewmodel.GameAssetModel
 import javafx.stage.FileChooser.ExtensionFilter
 import tornadofx.*

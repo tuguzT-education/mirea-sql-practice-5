@@ -1,24 +1,23 @@
-package io.github.tuguzt.sql.presentation.view
+package io.github.tuguzt.sql.presentation.view.table
 
+import io.github.tuguzt.sql.presentation.view.edit.GameAssetEditFragment
 import io.github.tuguzt.sql.presentation.viewmodel.GameAssetModel
+import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTableModel
 import io.github.tuguzt.sql.repository.model.GameAssetEntity
-import io.github.tuguzt.sql.repository.model.GameAssetTypeEntity
 import javafx.scene.control.TableRow
 import tornadofx.*
 
 class GameAssetTableView : View(FX.messages["game_assets"]) {
-    private val assets = observableListOf(
-        GameAssetEntity("Hello", "Some shit", "file:///file.txt", GameAssetTypeEntity("World")),
-    )
-    private val model = GameAssetModel(GameAssetEntity())
+    private val model: GameAssetTableModel by inject()
+    private val itemModel = GameAssetModel(GameAssetEntity())
 
-    override val root = tableview(assets) {
+    override val root = tableview(model.assets) {
         isEditable = true
         setRowFactory {
             TableRow<GameAssetEntity?>().apply {
                 onDoubleClick {
                     if (isEmpty) return@onDoubleClick
-                    openInternalWindow(GameAssetEditFragment(model), movable = false, closeButton = false)
+                    openInternalWindow(GameAssetEditFragment(itemModel), movable = false, closeButton = false)
                 }
             }
         }
@@ -28,7 +27,7 @@ class GameAssetTableView : View(FX.messages["game_assets"]) {
         column(messages["data"], GameAssetEntity::dataUriProperty)
         column(messages["type"], GameAssetEntity::typeProperty)
 
-        model.rebindOnChange(this) { selected ->
+        itemModel.rebindOnChange(this) { selected ->
             item = selected ?: GameAssetEntity()
         }
     }

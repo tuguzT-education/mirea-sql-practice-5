@@ -1,4 +1,4 @@
-package io.github.tuguzt.sql.presentation.viewmodel
+package io.github.tuguzt.sql.presentation.viewmodel.edit
 
 import tornadofx.*
 import java.io.File

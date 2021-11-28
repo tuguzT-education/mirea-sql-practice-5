@@ -1,5 +1,6 @@
 package io.github.tuguzt.sql.presentation.view
 
+import io.github.tuguzt.sql.presentation.view.table.GameAssetTableView
 import tornadofx.*
 
 /**
