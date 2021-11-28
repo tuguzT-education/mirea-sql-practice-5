@@ -4,6 +4,7 @@ import io.github.tuguzt.sql.presentation.view.edit.GameAssetEditFragment
 import io.github.tuguzt.sql.presentation.viewmodel.GameAssetModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTableModel
 import io.github.tuguzt.sql.repository.model.GameAssetEntity
+import javafx.geometry.Pos
 import javafx.scene.control.TableRow
 import tornadofx.*
 
@@ -22,6 +23,7 @@ class GameAssetTableView : View(FX.messages["game_assets"]) {
             }
         }
 
+        column("#", GameAssetEntity::idProperty)
         column(messages["name"], GameAssetEntity::nameProperty)
         column(messages["description"], GameAssetEntity::descriptionProperty)
         column(messages["data"], GameAssetEntity::dataUriProperty)

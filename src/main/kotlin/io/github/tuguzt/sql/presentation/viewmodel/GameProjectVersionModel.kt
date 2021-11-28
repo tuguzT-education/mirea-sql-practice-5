@@ -1,14 +1,14 @@
 package io.github.tuguzt.sql.presentation.viewmodel
 
+import io.github.tuguzt.sql.MutableProperty
 import io.github.tuguzt.sql.repository.model.GameProjectVersionEntity
-import javafx.beans.property.Property
 import tornadofx.*
 
 class GameProjectVersionModel(gameProjectVersion: GameProjectVersionEntity) :
     ItemViewModel<GameProjectVersionEntity>(gameProjectVersion) {
-    val hash: Property<String> = bind(GameProjectVersionEntity::hashProperty)
-    val major: Property<Int> = bind(GameProjectVersionEntity::majorProperty)
-    val minor: Property<Int> = bind(GameProjectVersionEntity::minorProperty)
-    val patch: Property<Int> = bind(GameProjectVersionEntity::patchProperty)
-    val metadata: Property<String> = bind(GameProjectVersionEntity::metadataProperty)
+    val hash: MutableProperty<String> = bind(GameProjectVersionEntity::hashProperty)
+    val major: MutableProperty<Int> = bind(GameProjectVersionEntity::majorProperty)
+    val minor: MutableProperty<Int> = bind(GameProjectVersionEntity::minorProperty)
+    val patch: MutableProperty<Int> = bind(GameProjectVersionEntity::patchProperty)
+    val metadata: MutableProperty<String> = bind(GameProjectVersionEntity::metadataProperty)
 }

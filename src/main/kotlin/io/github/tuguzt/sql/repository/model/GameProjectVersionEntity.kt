@@ -1,5 +1,6 @@
 package io.github.tuguzt.sql.repository.model
 
+import io.github.tuguzt.sql.ObjectProperty
 import io.github.tuguzt.sql.domain.model.GameProjectVersion
 import tornadofx.*
 import javax.json.JsonObject
@@ -12,8 +13,11 @@ class GameProjectVersionEntity(
     metadata: String = "",
     id: Int = 0,
 ) : GameProjectVersion, JsonModel {
-    private var _id = id
+    private var _id: Int by property(id)
     override val id get() = _id
+
+    private val _idProperty get() = getProperty(GameProjectVersionEntity::_id)
+    val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var hash: String by property(hash)
     inline val hashProperty get() = getProperty(GameProjectVersionEntity::hash)

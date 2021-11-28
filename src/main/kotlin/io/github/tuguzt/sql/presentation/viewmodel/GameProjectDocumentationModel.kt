@@ -1,12 +1,12 @@
 package io.github.tuguzt.sql.presentation.viewmodel
 
+import io.github.tuguzt.sql.MutableProperty
 import io.github.tuguzt.sql.repository.model.GameProjectDocumentationEntity
-import javafx.beans.property.Property
 import tornadofx.*
 
 class GameProjectDocumentationModel(gameProjectDocumentation: GameProjectDocumentationEntity) :
     ItemViewModel<GameProjectDocumentationEntity>(gameProjectDocumentation) {
-    val businessPlan: Property<String> = bind(GameProjectDocumentationEntity::businessPlanProperty)
-    val designDocument: Property<String> = bind(GameProjectDocumentationEntity::designDocumentProperty)
-    val vision: Property<String> = bind(GameProjectDocumentationEntity::visionProperty)
+    val businessPlan: MutableProperty<String> = bind(GameProjectDocumentationEntity::businessPlanProperty)
+    val designDocument: MutableProperty<String> = bind(GameProjectDocumentationEntity::designDocumentProperty)
+    val vision: MutableProperty<String> = bind(GameProjectDocumentationEntity::visionProperty)
 }

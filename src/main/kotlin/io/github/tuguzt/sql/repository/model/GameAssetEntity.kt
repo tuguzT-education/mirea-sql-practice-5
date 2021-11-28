@@ -1,5 +1,6 @@
 package io.github.tuguzt.sql.repository.model
 
+import io.github.tuguzt.sql.ObjectProperty
 import io.github.tuguzt.sql.domain.model.GameAsset
 import tornadofx.*
 import javax.json.JsonObject
@@ -11,11 +12,14 @@ class GameAssetEntity(
     type: GameAssetTypeEntity = GameAssetTypeEntity(),
     id: Int = 0,
 ) : GameAsset, JsonModel {
-    private var _id = id
+    private var _id: Int by property(id)
     override val id get() = _id
 
+    private val _idProperty get() = getProperty(GameAssetEntity::_id)
+    val idProperty: ObjectProperty<Int> get() = _idProperty
+
     override var dataUri: String by property(dataUri)
-    val dataUriProperty get() = getProperty(GameAssetEntity::dataUri)
+    inline val dataUriProperty get() = getProperty(GameAssetEntity::dataUri)
 
     override var description: String by property(description)
     inline val descriptionProperty get() = getProperty(GameAssetEntity::description)
