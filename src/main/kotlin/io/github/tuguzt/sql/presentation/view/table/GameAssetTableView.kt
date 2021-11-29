@@ -1,6 +1,8 @@
 package io.github.tuguzt.sql.presentation.view.table
 
+import io.github.tuguzt.sql.presentation.empty
 import io.github.tuguzt.sql.presentation.view.edit.GameAssetEditFragment
+import io.github.tuguzt.sql.presentation.view.show.GameAssetShowFragment
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTableModel
 import io.github.tuguzt.sql.repository.model.GameAssetEntity
@@ -15,9 +17,21 @@ class GameAssetTableView : View(FX.messages["game_assets"]) {
         isEditable = true
         setRowFactory {
             TableRow<GameAssetEntity?>().apply {
+                fun editItem() {
+                    openInternalWindow(GameAssetEditFragment(itemModel), movable = false, closeButton = false)
+                }
+                fun showItem() {
+                    openInternalWindow(GameAssetShowFragment(itemModel), movable = false)
+                }
+
                 onDoubleClick {
                     if (isEmpty) return@onDoubleClick
-                    openInternalWindow(GameAssetEditFragment(itemModel), movable = false, closeButton = false)
+                    showItem()
+                }
+                contextmenu {
+                    disableWhen(empty)
+                    item(messages["show"]).action(::showItem)
+                    item(messages["edit"]).action(::editItem)
                 }
             }
         }

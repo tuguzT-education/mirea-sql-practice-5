@@ -35,7 +35,7 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
                         if (it == null) error(messages["file_must_be_chosen"]) else null
                     }
                 }
-                label(model.selectedFileProperty, converter = FileStringConverter())
+                label(model.selectedFileProperty, converter = FileStringConverter)
                 button(messages["clear"]) {
                     enableWhen(model::valid)
                     action {

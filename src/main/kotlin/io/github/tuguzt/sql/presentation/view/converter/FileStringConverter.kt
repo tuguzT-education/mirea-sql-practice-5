@@ -4,7 +4,7 @@ import javafx.util.StringConverter
 import java.io.File
 import java.net.URI
 
-class FileStringConverter : StringConverter<File?>() {
+object FileStringConverter : StringConverter<File?>() {
     override fun toString(file: File?) = file?.name.orEmpty()
 
     override fun fromString(string: String): File {
