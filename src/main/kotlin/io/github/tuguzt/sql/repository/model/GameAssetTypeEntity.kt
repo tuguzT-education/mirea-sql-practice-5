@@ -34,6 +34,4 @@ class GameAssetTypeEntity(name: String = "", id: Int = 0) : GameAssetType, JsonM
     }
 
     override fun hashCode() = id
-
-    override fun toString() = name
 }

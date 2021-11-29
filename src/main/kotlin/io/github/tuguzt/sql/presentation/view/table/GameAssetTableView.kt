@@ -40,7 +40,7 @@ class GameAssetTableView : View(FX.messages["game_assets"]) {
         column(messages["name"], GameAssetEntity::nameProperty)
         column(messages["description"], GameAssetEntity::descriptionProperty)
         column(messages["data"], GameAssetEntity::dataUriProperty)
-        column(messages["type"], GameAssetEntity::typeProperty)
+        column<GameAssetEntity, String>(messages["type"], { it.value.typeProperty.select { it.nameProperty } })
 
         itemModel.rebindOnChange(this) { selected ->
             item = selected ?: GameAssetEntity()

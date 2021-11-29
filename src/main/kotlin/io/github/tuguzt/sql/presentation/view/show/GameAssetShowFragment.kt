@@ -18,7 +18,7 @@ class GameAssetShowFragment(private val assetModel: GameAssetModel) : Fragment(F
                 button(messages["open_file"])
             }
             field(messages["type"]) {
-                label(assetModel.type)
+                label(assetModel.type.select { it.nameProperty })
             }
         }
     }

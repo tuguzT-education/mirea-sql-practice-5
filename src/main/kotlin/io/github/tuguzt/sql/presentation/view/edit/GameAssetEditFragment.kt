@@ -1,6 +1,7 @@
 package io.github.tuguzt.sql.presentation.view.edit
 
 import io.github.tuguzt.sql.presentation.view.converter.FileStringConverter
+import io.github.tuguzt.sql.presentation.view.converter.GameAssetTypeStringConverter
 import io.github.tuguzt.sql.presentation.viewmodel.edit.GameAssetEditModel
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTypeTableModel
@@ -47,7 +48,9 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
                 }
             }
             field(messages["type"]) {
-                combobox(assetModel.type, values = assetTypeTableModel.assetTypes)
+                combobox(assetModel.type, values = assetTypeTableModel.assetTypes) {
+                    converter = GameAssetTypeStringConverter
+                }
             }
             buttonbar {
                 button(messages["submit"]) {
