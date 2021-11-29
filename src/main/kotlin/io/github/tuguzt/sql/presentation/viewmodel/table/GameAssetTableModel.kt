@@ -5,8 +5,7 @@ import io.github.tuguzt.sql.repository.model.GameAssetTypeEntity
 import tornadofx.*
 
 class GameAssetTableModel : ViewModel() {
-    val assets
-        get() = observableListOf(
-            GameAssetEntity("Hello", "Some shit", "file:///file.txt", GameAssetTypeEntity("World")),
-        )
+    val assets = observableListOf(
+        GameAssetEntity("Hello", "Some shit", "file:///file.txt", GameAssetTypeEntity("World", 1)),
+    )
 }

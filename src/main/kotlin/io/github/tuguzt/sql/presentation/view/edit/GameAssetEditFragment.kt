@@ -3,6 +3,7 @@ package io.github.tuguzt.sql.presentation.view.edit
 import io.github.tuguzt.sql.presentation.view.converter.FileStringConverter
 import io.github.tuguzt.sql.presentation.viewmodel.edit.GameAssetEditModel
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetModel
+import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTypeTableModel
 import javafx.stage.FileChooser.ExtensionFilter
 import tornadofx.*
 import java.io.File
@@ -10,6 +11,7 @@ import java.net.URI
 
 class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(FX.messages["edit_game_asset"]) {
     private val model: GameAssetEditModel by inject()
+    private val assetTypeTableModel: GameAssetTypeTableModel by inject()
 
     init {
         val string = requireNotNull(assetModel.dataUri.value)
@@ -45,9 +47,7 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
                 }
             }
             field(messages["type"]) {
-                combobox(assetModel.type) {
-                    // TODO
-                }
+                combobox(assetModel.type, values = assetTypeTableModel.assetTypes)
             }
             buttonbar {
                 button(messages["submit"]) {
