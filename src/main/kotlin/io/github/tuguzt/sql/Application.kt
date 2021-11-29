@@ -17,7 +17,7 @@ class Application : App() {
 
     override val primaryView = kotlin.run {
         val userKey = config["user_key"]?.toString()
-        val isUserFound = userKey.isNullOrBlank()
+        val isUserFound = !userKey.isNullOrBlank()
         if (isUserFound) MainView::class else RegisterView::class
     }
 
