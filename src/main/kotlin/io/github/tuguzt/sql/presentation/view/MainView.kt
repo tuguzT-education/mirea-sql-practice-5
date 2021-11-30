@@ -14,5 +14,6 @@ class MainView : View(FX.messages["app_name"]) {
         item<GameProjectDocumentationTableView>()
         item<GameProjectPlatformTableView>()
         item<GameProjectVersionTableView>()
+        item<GameProjectTableView>()
     }
 }
