@@ -10,8 +10,10 @@ class GameProjectPlatformEditFragment(private val platformModel: GameProjectPlat
     private val model: GameProjectPlatformEditModel by inject()
 
     override val root = form {
-        field(messages["name"]) {
-            textfield(platformModel.name).required()
+        fieldset {
+            field(messages["name"]) {
+                textfield(platformModel.name).required()
+            }
         }
         buttonbar {
             button(messages["submit"]) {

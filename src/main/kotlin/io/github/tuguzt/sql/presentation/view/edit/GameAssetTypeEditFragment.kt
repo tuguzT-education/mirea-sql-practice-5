@@ -14,16 +14,16 @@ class GameAssetTypeEditFragment(private val typeModel: GameAssetTypeModel) :
             field(messages["name"]) {
                 textfield(typeModel.name).required()
             }
-            buttonbar {
-                button(messages["submit"]) {
-                    enableWhen {
-                        (typeModel.dirty and typeModel.valid) or (model.dirty and model.valid)
-                    }
-                    action(::submit)
+        }
+        buttonbar {
+            button(messages["submit"]) {
+                enableWhen {
+                    (typeModel.dirty and typeModel.valid) or (model.dirty and model.valid)
                 }
-                button(messages["cancel"]) {
-                    action(::cancel)
-                }
+                action(::submit)
+            }
+            button(messages["cancel"]) {
+                action(::cancel)
             }
         }
     }

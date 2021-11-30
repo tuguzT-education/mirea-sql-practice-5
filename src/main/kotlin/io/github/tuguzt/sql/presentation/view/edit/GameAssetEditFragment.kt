@@ -52,16 +52,16 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
                     converter = GameAssetTypeStringConverter
                 }
             }
-            buttonbar {
-                button(messages["submit"]) {
-                    enableWhen {
-                        (assetModel.dirty and assetModel.valid) or (model.dirty and model.valid)
-                    }
-                    action(::submit)
+        }
+        buttonbar {
+            button(messages["submit"]) {
+                enableWhen {
+                    (assetModel.dirty and assetModel.valid) or (model.dirty and model.valid)
                 }
-                button(messages["cancel"]) {
-                    action(::cancel)
-                }
+                action(::submit)
+            }
+            button(messages["cancel"]) {
+                action(::cancel)
             }
         }
     }
