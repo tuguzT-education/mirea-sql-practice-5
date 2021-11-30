@@ -3,6 +3,7 @@ package io.github.tuguzt.sql.presentation.view
 import io.github.tuguzt.sql.presentation.view.table.GameAssetTableView
 import io.github.tuguzt.sql.presentation.view.table.GameAssetTypeTableView
 import io.github.tuguzt.sql.presentation.view.table.GameProjectDocumentationTableView
+import io.github.tuguzt.sql.presentation.view.table.GameProjectPlatformTableView
 import javafx.geometry.Side
 import tornadofx.*
 
@@ -14,5 +15,6 @@ class MainView : View(FX.messages["app_name"]) {
         item<GameAssetTableView>()
         item<GameAssetTypeTableView>()
         item<GameProjectDocumentationTableView>()
+        item<GameProjectPlatformTableView>()
     }
 }
