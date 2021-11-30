@@ -20,6 +20,7 @@ class GameAssetTableView : View(FX.messages["game_assets"]) {
                 fun editItem() {
                     openInternalWindow(GameAssetEditFragment(itemModel), movable = false, closeButton = false)
                 }
+
                 fun showItem() {
                     openInternalWindow(GameAssetShowFragment(itemModel), movable = false)
                 }

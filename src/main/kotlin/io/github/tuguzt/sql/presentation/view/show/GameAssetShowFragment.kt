@@ -1,7 +1,6 @@
 package io.github.tuguzt.sql.presentation.view.show
 
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetModel
-import javafx.scene.text.FontWeight
 import tornadofx.*
 
 class GameAssetShowFragment(private val assetModel: GameAssetModel) : Fragment(FX.messages["game_asset"]) {

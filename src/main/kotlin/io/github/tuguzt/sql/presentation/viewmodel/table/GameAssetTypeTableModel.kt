@@ -4,8 +4,7 @@ import io.github.tuguzt.sql.repository.model.GameAssetTypeEntity
 import tornadofx.*
 
 class GameAssetTypeTableModel : ViewModel() {
-    val assetTypes = observableListOf(
-        GameAssetTypeEntity("Hello", 0),
-        GameAssetTypeEntity("World", 1),
-    )
+    private val api: Rest by inject()
+
+    val assetTypes = api.get("game_asset_types/all").list().toModel<GameAssetTypeEntity>()
 }
