@@ -5,8 +5,12 @@ import io.github.tuguzt.sql.domain.model.Officer
 import tornadofx.*
 import javax.json.JsonObject
 
-class OfficerEntity(name: String = "", role: OfficerRoleEntity = OfficerRoleEntity(), id: Int = 0) : Officer,
-    JsonModel {
+class OfficerEntity(
+    name: String = "",
+    role: OfficerRoleEntity = OfficerRoleEntity(),
+    organization: OrganizationEntity = OrganizationEntity(),
+    id: Int = 0,
+) : Officer, JsonModel {
     private var _id: Int by property(id)
     override val id get() = _id
 
@@ -14,10 +18,13 @@ class OfficerEntity(name: String = "", role: OfficerRoleEntity = OfficerRoleEnti
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var name: String by property(name)
-    inline val nameProperty get() = getProperty(OfficerEntity::name)
+    val nameProperty get() = getProperty(OfficerEntity::name)
 
     override var role: OfficerRoleEntity by property(role)
-    inline val roleProperty get() = getProperty(OfficerEntity::role)
+    val roleProperty get() = getProperty(OfficerEntity::role)
+
+    override var organization: OrganizationEntity by property(organization)
+    val organizationProperty get() = getProperty(OfficerEntity::organization)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))

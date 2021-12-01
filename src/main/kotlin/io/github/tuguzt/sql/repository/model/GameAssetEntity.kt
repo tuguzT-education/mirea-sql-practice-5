@@ -10,6 +10,7 @@ class GameAssetEntity(
     description: String = "",
     dataUri: String = "",
     type: GameAssetTypeEntity = GameAssetTypeEntity(),
+    gameProject: GameProjectEntity = GameProjectEntity(),
     id: Int = 0,
 ) : GameAsset, JsonModel {
     private var _id: Int by property(id)
@@ -19,16 +20,19 @@ class GameAssetEntity(
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var dataUri: String by property(dataUri)
-    inline val dataUriProperty get() = getProperty(GameAssetEntity::dataUri)
+    val dataUriProperty get() = getProperty(GameAssetEntity::dataUri)
 
     override var description: String by property(description)
-    inline val descriptionProperty get() = getProperty(GameAssetEntity::description)
+    val descriptionProperty get() = getProperty(GameAssetEntity::description)
 
     override var name: String by property(name)
-    inline val nameProperty get() = getProperty(GameAssetEntity::name)
+    val nameProperty get() = getProperty(GameAssetEntity::name)
 
     override var type: GameAssetTypeEntity by property(type)
-    inline val typeProperty get() = getProperty(GameAssetEntity::type)
+    val typeProperty get() = getProperty(GameAssetEntity::type)
+
+    override var gameProject: GameProjectEntity by property(gameProject)
+    val gameProjectProperty get() = getProperty(GameAssetEntity::gameProject)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))
@@ -36,6 +40,7 @@ class GameAssetEntity(
         description = requireNotNull(string("description"))
         name = requireNotNull(string("name"))
         type = requireNotNull(jsonModel("type"))
+        gameProject = requireNotNull(jsonModel("game_project"))
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
@@ -44,6 +49,7 @@ class GameAssetEntity(
         add("description", description)
         add("name", name)
         add("type", type)
+        add("game_project", gameProject)
     }
 
     override fun equals(other: Any?): Boolean {

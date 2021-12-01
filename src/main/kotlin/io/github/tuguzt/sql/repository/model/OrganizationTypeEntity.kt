@@ -13,7 +13,7 @@ class OrganizationTypeEntity(name: String = "", id: Int = 0) : OrganizationType,
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var name: String by property(name)
-    inline val nameProperty get() = getProperty(OrganizationTypeEntity::name)
+    val nameProperty get() = getProperty(OrganizationTypeEntity::name)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))

@@ -10,9 +10,10 @@ class GameProjectEntity(
     name: String = "",
     description: String = "",
     documentation: GameProjectDocumentationEntity = GameProjectDocumentationEntity(),
-    assets: ObservableSet<GameAssetEntity> = observableSetOf(),
-    platforms: ObservableSet<GameProjectPlatformEntity> = observableSetOf(),
-    versions: ObservableSet<GameProjectVersionEntity> = observableSetOf(),
+    assets: Set<GameAssetEntity> = setOf(),
+    platforms: Set<GameProjectPlatformEntity> = setOf(),
+    versions: Set<GameProjectVersionEntity> = setOf(),
+    organizations: Set<OrganizationEntity> = setOf(),
     id: Int = 0,
 ) : GameProject, JsonModel {
     private var _id: Int by property(id)
@@ -22,22 +23,25 @@ class GameProjectEntity(
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var name: String by property(name)
-    inline val nameProperty get() = getProperty(GameProjectEntity::name)
+    val nameProperty get() = getProperty(GameProjectEntity::name)
 
     override var description: String by property(description)
-    inline val descriptionProperty get() = getProperty(GameProjectEntity::description)
+    val descriptionProperty get() = getProperty(GameProjectEntity::description)
 
     override var documentation: GameProjectDocumentationEntity by property(documentation)
-    inline val documentationProperty get() = getProperty(GameProjectEntity::documentation)
+    val documentationProperty get() = getProperty(GameProjectEntity::documentation)
 
-    override var assets: ObservableSet<GameAssetEntity> by property(assets)
-    inline val assetsProperty get() = getProperty(GameProjectEntity::assets)
+    override var assets: ObservableSet<GameAssetEntity> by property(assets.toObservable())
+    val assetsProperty get() = getProperty(GameProjectEntity::assets)
 
-    override var platforms: ObservableSet<GameProjectPlatformEntity> by property(platforms)
-    inline val platformsProperty get() = getProperty(GameProjectEntity::platforms)
+    override var platforms: ObservableSet<GameProjectPlatformEntity> by property(platforms.toObservable())
+    val platformsProperty get() = getProperty(GameProjectEntity::platforms)
 
-    override var versions: ObservableSet<GameProjectVersionEntity> by property(versions)
-    inline val versionsProperty get() = getProperty(GameProjectEntity::versions)
+    override var versions: ObservableSet<GameProjectVersionEntity> by property(versions.toObservable())
+    val versionsProperty get() = getProperty(GameProjectEntity::versions)
+
+    override var organizations: ObservableSet<OrganizationEntity> by property(organizations.toObservable())
+    val organizationsProperty get() = getProperty(GameProjectEntity::organizations)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))
@@ -47,6 +51,7 @@ class GameProjectEntity(
         assets = requireNotNull(jsonArray("assets")).toModel<GameAssetEntity>().toSet().toObservable()
         platforms = requireNotNull(jsonArray("platforms")).toModel<GameProjectPlatformEntity>().toSet().toObservable()
         versions = requireNotNull(jsonArray("versions")).toModel<GameProjectVersionEntity>().toSet().toObservable()
+        organizations = requireNotNull(jsonArray("organizations")).toModel<OrganizationEntity>().toSet().toObservable()
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
@@ -57,6 +62,7 @@ class GameProjectEntity(
         add("assets", assets.toJSON())
         add("platforms", platforms.toJSON())
         add("versions", versions.toJSON())
+        add("organizations", organizations.toJSON())
     }
 
     override fun equals(other: Any?): Boolean {

@@ -18,13 +18,13 @@ class GameProjectDocumentationEntity(
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var businessPlan: String by property(businessPlan)
-    inline val businessPlanProperty get() = getProperty(GameProjectDocumentationEntity::businessPlan)
+    val businessPlanProperty get() = getProperty(GameProjectDocumentationEntity::businessPlan)
 
     override var designDocument: String by property(designDocument)
-    inline val designDocumentProperty get() = getProperty(GameProjectDocumentationEntity::designDocument)
+    val designDocumentProperty get() = getProperty(GameProjectDocumentationEntity::designDocument)
 
     override var vision: String by property(vision)
-    inline val visionProperty get() = getProperty(GameProjectDocumentationEntity::vision)
+    val visionProperty get() = getProperty(GameProjectDocumentationEntity::vision)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))

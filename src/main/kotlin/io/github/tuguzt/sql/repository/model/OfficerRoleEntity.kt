@@ -13,7 +13,7 @@ class OfficerRoleEntity(name: String = "", id: Int = 0) : OfficerRole, JsonModel
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var name: String by property(name)
-    inline val nameProperty get() = getProperty(OfficerRoleEntity::name)
+    val nameProperty get() = getProperty(OfficerRoleEntity::name)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))

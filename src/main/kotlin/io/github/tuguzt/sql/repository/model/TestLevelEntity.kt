@@ -13,7 +13,7 @@ class TestLevelEntity(name: String = "", id: Int = 0) : TestLevel, JsonModel {
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var name: String by property(name)
-    inline val nameProperty get() = getProperty(TestLevelEntity::name)
+    val nameProperty get() = getProperty(TestLevelEntity::name)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))

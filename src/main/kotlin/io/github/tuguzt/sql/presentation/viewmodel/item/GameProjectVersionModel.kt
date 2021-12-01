@@ -1,6 +1,7 @@
 package io.github.tuguzt.sql.presentation.viewmodel.item
 
 import io.github.tuguzt.sql.MutableProperty
+import io.github.tuguzt.sql.repository.model.GameProjectEntity
 import io.github.tuguzt.sql.repository.model.GameProjectVersionEntity
 import tornadofx.*
 
@@ -11,4 +12,5 @@ class GameProjectVersionModel(gameProjectVersion: GameProjectVersionEntity) :
     val minor: MutableProperty<Int> = bind(GameProjectVersionEntity::minorProperty)
     val patch: MutableProperty<Int> = bind(GameProjectVersionEntity::patchProperty)
     val metadata: MutableProperty<String> = bind(GameProjectVersionEntity::metadataProperty)
+    val gameProject: MutableProperty<GameProjectEntity> = bind(GameProjectVersionEntity::gameProjectProperty)
 }

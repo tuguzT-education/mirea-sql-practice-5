@@ -18,13 +18,13 @@ class UserEntity(
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var login: String by property(login)
-    inline val loginProperty get() = getProperty(UserEntity::login)
+    val loginProperty get() = getProperty(UserEntity::login)
 
     override var passwordEncrypted: String by property(passwordEncrypted)
-    inline val passwordEncryptedProperty get() = getProperty(UserEntity::passwordEncrypted)
+    val passwordEncryptedProperty get() = getProperty(UserEntity::passwordEncrypted)
 
     override var officer: OfficerEntity? by property(officer)
-    inline val officerProperty get() = getProperty(UserEntity::officer)
+    val officerProperty get() = getProperty(UserEntity::officer)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))

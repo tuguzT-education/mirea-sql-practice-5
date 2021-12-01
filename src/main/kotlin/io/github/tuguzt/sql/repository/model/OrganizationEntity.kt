@@ -21,22 +21,22 @@ class OrganizationEntity(
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var name: String by property(name)
-    inline val nameProperty get() = getProperty(OrganizationEntity::name)
+    val nameProperty get() = getProperty(OrganizationEntity::name)
 
     override var description: String by property(description)
-    inline val descriptionProperty get() = getProperty(OrganizationEntity::description)
+    val descriptionProperty get() = getProperty(OrganizationEntity::description)
 
     override var type: OrganizationTypeEntity by property(type)
-    inline val typeProperty get() = getProperty(OrganizationEntity::type)
+    val typeProperty get() = getProperty(OrganizationEntity::type)
 
     override var testDocument: TestDocumentEntity? by property(testDocument)
-    inline val testDocumentProperty get() = getProperty(OrganizationEntity::testDocument)
+    val testDocumentProperty get() = getProperty(OrganizationEntity::testDocument)
 
     override var gameProjects: Set<GameProjectEntity> by property(gameProjects)
-    inline val gameProjectsProperty get() = getProperty(OrganizationEntity::gameProjects)
+    val gameProjectsProperty get() = getProperty(OrganizationEntity::gameProjects)
 
     override var officers: Set<OfficerEntity> by property(officers)
-    inline val officersProperty get() = getProperty(OrganizationEntity::officers)
+    val officersProperty get() = getProperty(OrganizationEntity::officers)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))

@@ -13,7 +13,7 @@ class GameAssetTypeEntity(name: String = "", id: Int = 0) : GameAssetType, JsonM
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var name: String by property(name)
-    inline val nameProperty get() = getProperty(GameAssetTypeEntity::name)
+    val nameProperty get() = getProperty(GameAssetTypeEntity::name)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))

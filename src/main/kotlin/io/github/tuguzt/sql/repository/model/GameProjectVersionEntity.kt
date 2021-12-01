@@ -11,6 +11,7 @@ class GameProjectVersionEntity(
     minor: Int = 0,
     patch: Int = 0,
     metadata: String = "",
+    gameProject: GameProjectEntity = GameProjectEntity(),
     id: Int = 0,
 ) : GameProjectVersion, JsonModel {
     private var _id: Int by property(id)
@@ -20,19 +21,22 @@ class GameProjectVersionEntity(
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var hash: String by property(hash)
-    inline val hashProperty get() = getProperty(GameProjectVersionEntity::hash)
+    val hashProperty get() = getProperty(GameProjectVersionEntity::hash)
 
     override var major: Int by property(major)
-    inline val majorProperty get() = getProperty(GameProjectVersionEntity::major)
+    val majorProperty get() = getProperty(GameProjectVersionEntity::major)
 
     override var minor: Int by property(minor)
-    inline val minorProperty get() = getProperty(GameProjectVersionEntity::minor)
+    val minorProperty get() = getProperty(GameProjectVersionEntity::minor)
 
     override var patch: Int by property(patch)
-    inline val patchProperty get() = getProperty(GameProjectVersionEntity::patch)
+    val patchProperty get() = getProperty(GameProjectVersionEntity::patch)
 
     override var metadata: String by property(metadata)
-    inline val metadataProperty get() = getProperty(GameProjectVersionEntity::metadata)
+    val metadataProperty get() = getProperty(GameProjectVersionEntity::metadata)
+
+    override var gameProject: GameProjectEntity by property(gameProject)
+    val gameProjectProperty get() = getProperty(GameProjectVersionEntity::gameProject)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))
@@ -41,6 +45,7 @@ class GameProjectVersionEntity(
         minor = requireNotNull(int("minor"))
         patch = requireNotNull(int("patch"))
         metadata = requireNotNull(string("metadata"))
+        gameProject = requireNotNull(jsonModel("game_project"))
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
@@ -50,6 +55,7 @@ class GameProjectVersionEntity(
         add("minor", minor)
         add("patch", patch)
         add("metadata", metadata)
+        add("game_project", gameProject)
     }
 
     override fun equals(other: Any?): Boolean {

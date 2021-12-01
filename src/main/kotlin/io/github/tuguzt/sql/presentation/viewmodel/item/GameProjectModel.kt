@@ -11,4 +11,5 @@ class GameProjectModel(gameProject: GameProjectEntity) : ItemViewModel<GameProje
     val assets: MutableProperty<Set<GameAssetEntity>> = bind(GameProjectEntity::assetsProperty)
     val platforms: MutableProperty<Set<GameProjectPlatformEntity>> = bind(GameProjectEntity::platformsProperty)
     val versions: MutableProperty<Set<GameProjectVersionEntity>> = bind(GameProjectEntity::versionsProperty)
+    val organizations: MutableProperty<Set<OrganizationEntity>> = bind(GameProjectEntity::organizationsProperty)
 }

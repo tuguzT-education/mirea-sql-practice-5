@@ -14,10 +14,10 @@ class TestDocumentEntity(data: String = "", level: TestLevelEntity = TestLevelEn
     val idProperty: ObjectProperty<Int> get() = _idProperty
 
     override var data: String by property(data)
-    inline val dataProperty get() = getProperty(TestDocumentEntity::data)
+    val dataProperty get() = getProperty(TestDocumentEntity::data)
 
     override var level: TestLevelEntity by property(level)
-    inline val levelProperty get() = getProperty(TestDocumentEntity::level)
+    val levelProperty get() = getProperty(TestDocumentEntity::level)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))

@@ -24,7 +24,7 @@ class GameProjectVersionEditFragment(private val versionModel: GameProjectVersio
                 textfield(versionModel.patch).required()
             }
             field(messages["metadata"]) {
-                textfield(versionModel.metadata).required()
+                textfield(versionModel.metadata)
             }
         }
         buttonbar {
