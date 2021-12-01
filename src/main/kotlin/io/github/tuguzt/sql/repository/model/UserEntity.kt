@@ -30,14 +30,14 @@ class UserEntity(
         _id = requireNotNull(int("id"))
         login = requireNotNull(string("login"))
         officer = requireNotNull(jsonModel("officer"))
-        passwordEncrypted = requireNotNull(string("passwordEncrypted"))
+        passwordEncrypted = requireNotNull(string("password_encrypted"))
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
         add("id", id)
         add("login", login)
         add("officer", officer)
-        add("passwordEncrypted", passwordEncrypted)
+        add("password_encrypted", passwordEncrypted)
     }
 
     override fun equals(other: Any?): Boolean {
