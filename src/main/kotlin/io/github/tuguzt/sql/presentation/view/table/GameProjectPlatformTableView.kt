@@ -27,7 +27,11 @@ class GameProjectPlatformTableView : View(FX.messages["game_project_platforms"])
             setRowFactory {
                 TableRow<GameProjectPlatformEntity?>().apply {
                     fun editItem() {
-                        openInternalWindow(GameProjectPlatformEditFragment(itemModel), movable = false, closeButton = false)
+                        openInternalWindow(
+                            GameProjectPlatformEditFragment(itemModel),
+                            movable = false,
+                            closeButton = false
+                        )
                     }
 
                     fun showItem() {
@@ -49,6 +53,7 @@ class GameProjectPlatformTableView : View(FX.messages["game_project_platforms"])
                         disableWhen(empty)
                         item(messages["show"]).action(::showItem)
                         item(messages["edit"]).action(::editItem)
+                        item(messages["remove"]).action(::removeItem)
                     }
                 }
             }

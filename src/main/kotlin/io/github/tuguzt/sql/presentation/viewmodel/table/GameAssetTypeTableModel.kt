@@ -9,8 +9,9 @@ class GameAssetTypeTableModel : ViewModel() {
     val entities = observableListOf<GameAssetTypeEntity>()
 
     fun updateAll() {
+        val result = api.get("game_asset_types/all").list().toModel<GameAssetTypeEntity>()
         entities.clear()
-        entities += api.get("game_asset_types/all").list().toModel()
+        entities += result
     }
 
     fun save(entity: GameAssetTypeEntity): GameAssetTypeEntity {

@@ -9,8 +9,9 @@ class GameProjectPlatformTableModel : ViewModel() {
     val entities = observableListOf<GameProjectPlatformEntity>()
 
     fun updateAll() {
+        val result = api.get("game_project_platforms/all").list().toModel<GameProjectPlatformEntity>()
         entities.clear()
-        entities += api.get("game_project_platforms/all").list().toModel()
+        entities += result
     }
 
     fun save(entity: GameProjectPlatformEntity): GameProjectPlatformEntity {
