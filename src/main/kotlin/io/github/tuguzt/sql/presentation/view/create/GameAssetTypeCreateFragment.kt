@@ -1,15 +1,14 @@
-package io.github.tuguzt.sql.presentation.view.edit
+package io.github.tuguzt.sql.presentation.view.create
 
-import io.github.tuguzt.sql.presentation.viewmodel.edit.GameAssetTypeEditModel
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetTypeModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTypeTableModel
+import io.github.tuguzt.sql.repository.model.GameAssetTypeEntity
+import javafx.scene.control.TextField
 import tornadofx.*
 
-class GameAssetTypeEditFragment(private val typeModel: GameAssetTypeModel) :
-    Fragment(FX.messages["edit_game_asset_type"]) {
-
-    private val model: GameAssetTypeEditModel by inject()
+class GameAssetTypeCreateFragment : Fragment(FX.messages["create_game_asset_type"]) {
     private val tableModel: GameAssetTypeTableModel by inject()
+    private val typeModel = GameAssetTypeModel(GameAssetTypeEntity())
 
     override val root = form {
         fieldset {
@@ -18,13 +17,11 @@ class GameAssetTypeEditFragment(private val typeModel: GameAssetTypeModel) :
             }
             buttonbar {
                 button(messages["submit"]) {
-                    enableWhen {
-                        (typeModel.dirty and typeModel.valid) or (model.dirty and model.valid)
-                    }
+                    enableWhen { typeModel.dirty and typeModel.valid }
                     action(::submit)
                 }
                 button(messages["cancel"]) {
-                    action(::cancel)
+                    action(::close)
                 }
             }
         }
@@ -38,10 +35,5 @@ class GameAssetTypeEditFragment(private val typeModel: GameAssetTypeModel) :
             typeModel.item = it
             close()
         }
-    }
-
-    private fun cancel() {
-        typeModel.rollback()
-        close()
     }
 }

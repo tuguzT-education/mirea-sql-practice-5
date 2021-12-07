@@ -26,16 +26,16 @@ class GameProjectVersionEditFragment(private val versionModel: GameProjectVersio
             field(messages["metadata"]) {
                 textfield(versionModel.metadata)
             }
-        }
-        buttonbar {
-            button(messages["submit"]) {
-                enableWhen {
-                    (versionModel.dirty and versionModel.valid) or (model.dirty and model.valid)
+            buttonbar {
+                button(messages["submit"]) {
+                    enableWhen {
+                        (versionModel.dirty and versionModel.valid) or (model.dirty and model.valid)
+                    }
+                    action(::submit)
                 }
-                action(::submit)
-            }
-            button(messages["cancel"]) {
-                action(::cancel)
+                button(messages["cancel"]) {
+                    action(::cancel)
+                }
             }
         }
     }

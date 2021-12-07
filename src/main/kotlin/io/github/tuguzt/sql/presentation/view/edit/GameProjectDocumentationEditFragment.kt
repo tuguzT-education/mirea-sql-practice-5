@@ -20,16 +20,16 @@ class GameProjectDocumentationEditFragment(private val documentationModel: GameP
             field(messages["vision"]) {
                 textarea(documentationModel.vision).required()
             }
-        }
-        buttonbar {
-            button(messages["submit"]) {
-                enableWhen {
-                    (documentationModel.dirty and documentationModel.valid) or (model.dirty and model.valid)
+            buttonbar {
+                button(messages["submit"]) {
+                    enableWhen {
+                        (documentationModel.dirty and documentationModel.valid) or (model.dirty and model.valid)
+                    }
+                    action(::submit)
                 }
-                action(::submit)
-            }
-            button(messages["cancel"]) {
-                action(::cancel)
+                button(messages["cancel"]) {
+                    action(::cancel)
+                }
             }
         }
     }

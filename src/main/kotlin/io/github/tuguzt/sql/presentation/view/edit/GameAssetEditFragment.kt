@@ -48,7 +48,7 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
                 }
             }
             field(messages["type"]) {
-                combobox(assetModel.type, values = assetTypeTableModel.assetTypes) {
+                combobox(assetModel.type, values = assetTypeTableModel.entities) {
                     converter = GameAssetTypeStringConverter
                 }
             }

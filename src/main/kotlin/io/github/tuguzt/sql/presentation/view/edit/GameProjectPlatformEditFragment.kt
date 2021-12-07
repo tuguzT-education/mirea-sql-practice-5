@@ -14,16 +14,16 @@ class GameProjectPlatformEditFragment(private val platformModel: GameProjectPlat
             field(messages["name"]) {
                 textfield(platformModel.name).required()
             }
-        }
-        buttonbar {
-            button(messages["submit"]) {
-                enableWhen {
-                    (platformModel.dirty and platformModel.valid) or (model.dirty and model.valid)
+            buttonbar {
+                button(messages["submit"]) {
+                    enableWhen {
+                        (platformModel.dirty and platformModel.valid) or (model.dirty and model.valid)
+                    }
+                    action(::submit)
                 }
-                action(::submit)
-            }
-            button(messages["cancel"]) {
-                action(::cancel)
+                button(messages["cancel"]) {
+                    action(::cancel)
+                }
             }
         }
     }

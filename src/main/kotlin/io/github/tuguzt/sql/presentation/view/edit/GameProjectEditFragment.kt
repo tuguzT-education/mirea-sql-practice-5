@@ -20,16 +20,16 @@ class GameProjectEditFragment(private val projectModel: GameProjectModel) : Frag
             field(messages["documentation"]) {
                 combobox(projectModel.documentation, values = documentationTableModel.documentations)
             }
-        }
-        buttonbar {
-            button(messages["submit"]) {
-                enableWhen {
-                    (projectModel.dirty and projectModel.valid) or (model.dirty and model.valid)
+            buttonbar {
+                button(messages["submit"]) {
+                    enableWhen {
+                        (projectModel.dirty and projectModel.valid) or (model.dirty and model.valid)
+                    }
+                    action(::submit)
                 }
-                action(::submit)
-            }
-            button(messages["cancel"]) {
-                action(::cancel)
+                button(messages["cancel"]) {
+                    action(::cancel)
+                }
             }
         }
     }
