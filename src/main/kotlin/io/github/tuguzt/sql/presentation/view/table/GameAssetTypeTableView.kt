@@ -68,6 +68,6 @@ class GameAssetTypeTableView : View(FX.messages["game_asset_types"]) {
     }
 
     private fun refresh() {
-        root.runAsyncWithOverlay(op = model::updateAll) ui {}
+        root.runAsyncWithOverlay(op = model::updateAll)
     }
 }

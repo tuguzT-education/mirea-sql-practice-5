@@ -1,15 +1,13 @@
-package io.github.tuguzt.sql.presentation.view.edit
+package io.github.tuguzt.sql.presentation.view.create
 
-import io.github.tuguzt.sql.presentation.viewmodel.edit.GameProjectDocumentationEditModel
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectDocumentationModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectDocumentationTableModel
+import io.github.tuguzt.sql.repository.model.GameProjectDocumentationEntity
 import tornadofx.*
 
-class GameProjectDocumentationEditFragment(private val documentationModel: GameProjectDocumentationModel) :
-    Fragment(FX.messages["edit_game_project_documentation"]) {
-
-    private val model: GameProjectDocumentationEditModel by inject()
+class GameProjectDocumentationCreateFragment : Fragment(FX.messages["create_game_project_documentation"]) {
     private val tableModel: GameProjectDocumentationTableModel by inject()
+    private val documentationModel = GameProjectDocumentationModel(GameProjectDocumentationEntity())
 
     override val root = form {
         fieldset {
@@ -25,12 +23,12 @@ class GameProjectDocumentationEditFragment(private val documentationModel: GameP
             buttonbar {
                 button(messages["submit"]) {
                     enableWhen {
-                        (documentationModel.dirty and documentationModel.valid) or (model.dirty and model.valid)
+                        documentationModel.dirty and documentationModel.valid
                     }
                     action(::submit)
                 }
                 button(messages["cancel"]) {
-                    action(::cancel)
+                    action(::close)
                 }
             }
         }
@@ -44,10 +42,5 @@ class GameProjectDocumentationEditFragment(private val documentationModel: GameP
             documentationModel.item = it
             close()
         }
-    }
-
-    private fun cancel() {
-        documentationModel.rollback()
-        close()
     }
 }

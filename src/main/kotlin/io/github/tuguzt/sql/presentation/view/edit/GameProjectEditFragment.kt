@@ -18,7 +18,7 @@ class GameProjectEditFragment(private val projectModel: GameProjectModel) : Frag
                 textarea(projectModel.description)
             }
             field(messages["documentation"]) {
-                combobox(projectModel.documentation, values = documentationTableModel.documentations)
+                combobox(projectModel.documentation, values = documentationTableModel.entities)
             }
             buttonbar {
                 button(messages["submit"]) {

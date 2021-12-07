@@ -10,7 +10,7 @@ class GameAssetTypeTableModel : ViewModel() {
 
     fun updateAll() {
         entities.clear()
-        entities += api.get("game_asset_types/all").list().toModel<GameAssetTypeEntity>()
+        entities += api.get("game_asset_types/all").list().toModel()
     }
 
     fun save(entity: GameAssetTypeEntity): GameAssetTypeEntity {
