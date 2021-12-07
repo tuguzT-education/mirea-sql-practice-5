@@ -29,7 +29,7 @@ class UserEntity(
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))
         login = requireNotNull(string("login"))
-        officer = requireNotNull(jsonModel("officer"))
+        officer = jsonModel("officer")
         passwordEncrypted = requireNotNull(string("password_encrypted"))
     }
 

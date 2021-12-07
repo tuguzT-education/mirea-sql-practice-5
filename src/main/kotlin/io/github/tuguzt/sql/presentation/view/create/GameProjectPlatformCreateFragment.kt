@@ -1,13 +1,13 @@
 package io.github.tuguzt.sql.presentation.view.create
 
-import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetTypeModel
-import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTypeTableModel
-import io.github.tuguzt.sql.repository.model.GameAssetTypeEntity
+import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectPlatformModel
+import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectPlatformTableModel
+import io.github.tuguzt.sql.repository.model.GameProjectPlatformEntity
 import tornadofx.*
 
-class GameAssetTypeCreateFragment : Fragment(FX.messages["create_game_asset_type"]) {
-    private val tableModel: GameAssetTypeTableModel by inject()
-    private val model = GameAssetTypeModel(GameAssetTypeEntity())
+class GameProjectPlatformCreateFragment : View(FX.messages["create_game_project_platform"]) {
+    private val tableModel: GameProjectPlatformTableModel by inject()
+    private val model = GameProjectPlatformModel(GameProjectPlatformEntity())
 
     override val root = form {
         fieldset {

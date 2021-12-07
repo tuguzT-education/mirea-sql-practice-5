@@ -7,23 +7,23 @@ import tornadofx.*
 
 class GameProjectDocumentationCreateFragment : Fragment(FX.messages["create_game_project_documentation"]) {
     private val tableModel: GameProjectDocumentationTableModel by inject()
-    private val documentationModel = GameProjectDocumentationModel(GameProjectDocumentationEntity())
+    private val model = GameProjectDocumentationModel(GameProjectDocumentationEntity())
 
     override val root = form {
         fieldset {
             field(messages["business_plan"]) {
-                textarea(documentationModel.businessPlan).required()
+                textarea(model.businessPlan).required()
             }
             field(messages["design_document"]) {
-                textarea(documentationModel.designDocument).required()
+                textarea(model.designDocument).required()
             }
             field(messages["vision"]) {
-                textarea(documentationModel.vision).required()
+                textarea(model.vision).required()
             }
             buttonbar {
                 button(messages["submit"]) {
                     enableWhen {
-                        documentationModel.dirty and documentationModel.valid
+                        model.dirty and model.valid
                     }
                     action(::submit)
                 }
@@ -36,10 +36,10 @@ class GameProjectDocumentationCreateFragment : Fragment(FX.messages["create_game
 
     private fun submit() {
         root.runAsyncWithOverlay {
-            documentationModel.commit()
-            tableModel.save(documentationModel.item)
+            model.commit()
+            tableModel.save(model.item)
         } ui {
-            documentationModel.item = it
+            model.item = it
             close()
         }
     }

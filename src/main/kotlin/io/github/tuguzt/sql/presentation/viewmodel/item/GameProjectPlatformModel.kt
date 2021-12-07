@@ -8,5 +8,5 @@ import tornadofx.*
 class GameProjectPlatformModel(gameProjectPlatform: GameProjectPlatformEntity) :
     ItemViewModel<GameProjectPlatformEntity>(gameProjectPlatform) {
     val name: MutableProperty<String> = bind(GameProjectPlatformEntity::nameProperty)
-    val gameProjects: MutableProperty<Set<GameProjectEntity>> = bind(GameProjectPlatformEntity::gameProjectProperty)
+    val gameProjects: MutableProperty<Set<GameProjectEntity>> = bind(GameProjectPlatformEntity::gameProjectsProperty)
 }

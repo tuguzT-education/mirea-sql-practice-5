@@ -48,10 +48,10 @@ class GameProjectEntity(
         name = requireNotNull(string("name"))
         description = requireNotNull(string("description"))
         documentation = requireNotNull(jsonModel("documentation"))
-        assets = requireNotNull(jsonArray("assets")).toModel<GameAssetEntity>().toSet().toObservable()
-        platforms = requireNotNull(jsonArray("platforms")).toModel<GameProjectPlatformEntity>().toSet().toObservable()
-        versions = requireNotNull(jsonArray("versions")).toModel<GameProjectVersionEntity>().toSet().toObservable()
-        organizations = requireNotNull(jsonArray("organizations")).toModel<OrganizationEntity>().toSet().toObservable()
+        assets = (jsonArray("assets")?.toModel<GameAssetEntity>()?.toSet() ?: setOf()).toObservable()
+        platforms = (jsonArray("platforms")?.toModel<GameProjectPlatformEntity>()?.toSet() ?: setOf()).toObservable()
+        versions = (jsonArray("versions")?.toModel<GameProjectVersionEntity>()?.toSet() ?: setOf()).toObservable()
+        organizations = (jsonArray("organizations")?.toModel<OrganizationEntity>()?.toSet() ?: setOf()).toObservable()
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
@@ -59,10 +59,10 @@ class GameProjectEntity(
         add("name", name)
         add("description", description)
         add("documentation", documentation)
-        add("assets", assets.toJSON())
-        add("platforms", platforms.toJSON())
-        add("versions", versions.toJSON())
-        add("organizations", organizations.toJSON())
+        add("assets", assets)
+        add("platforms", platforms)
+        add("versions", versions)
+        add("organizations", organizations)
     }
 
     override fun equals(other: Any?): Boolean {

@@ -2,6 +2,7 @@ package io.github.tuguzt.sql.repository.model
 
 import io.github.tuguzt.sql.ObjectProperty
 import io.github.tuguzt.sql.domain.model.Organization
+import javafx.collections.ObservableSet
 import tornadofx.*
 import javax.json.JsonObject
 
@@ -32,10 +33,10 @@ class OrganizationEntity(
     override var testDocument: TestDocumentEntity? by property(testDocument)
     val testDocumentProperty get() = getProperty(OrganizationEntity::testDocument)
 
-    override var gameProjects: Set<GameProjectEntity> by property(gameProjects)
+    override var gameProjects: ObservableSet<GameProjectEntity> by property(gameProjects.toObservable())
     val gameProjectsProperty get() = getProperty(OrganizationEntity::gameProjects)
 
-    override var officers: Set<OfficerEntity> by property(officers)
+    override var officers: ObservableSet<OfficerEntity> by property(officers.toObservable())
     val officersProperty get() = getProperty(OrganizationEntity::officers)
 
     override fun updateModel(json: JsonObject) = with(json) {
@@ -44,8 +45,8 @@ class OrganizationEntity(
         description = requireNotNull(string("description"))
         type = requireNotNull(jsonModel("type"))
         testDocument = jsonModel("test_document")
-        gameProjects = requireNotNull(jsonArray("game_projects")).toModel<GameProjectEntity>().toSet()
-        officers = requireNotNull(jsonArray("officers")).toModel<OfficerEntity>().toSet()
+        gameProjects = (jsonArray("game_projects")?.toModel<GameProjectEntity>()?.toSet() ?: setOf()).toObservable()
+        officers = (jsonArray("officers")?.toModel<OfficerEntity>()?.toSet() ?: setOf()).toObservable()
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
@@ -54,8 +55,8 @@ class OrganizationEntity(
         add("description", description)
         add("type", type)
         add("test_document", testDocument)
-        add("game_projects", gameProjects.toJSON())
-        add("officers", officers.toJSON())
+        add("game_projects", gameProjects)
+        add("officers", officers)
     }
 
     override fun equals(other: Any?): Boolean {

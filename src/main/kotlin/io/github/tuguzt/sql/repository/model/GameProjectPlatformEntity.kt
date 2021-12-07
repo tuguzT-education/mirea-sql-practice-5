@@ -21,18 +21,18 @@ class GameProjectPlatformEntity(
     val nameProperty get() = getProperty(GameProjectPlatformEntity::name)
 
     override var gameProjects: ObservableSet<GameProjectEntity> by property(gameProjects.toObservable())
-    val gameProjectProperty get() = getProperty(GameProjectPlatformEntity::gameProjects)
+    val gameProjectsProperty get() = getProperty(GameProjectPlatformEntity::gameProjects)
 
     override fun updateModel(json: JsonObject) = with(json) {
         _id = requireNotNull(int("id"))
         name = requireNotNull(string("name"))
-        gameProjects = requireNotNull(jsonArray("game_projects")).toModel<GameProjectEntity>().toSet().toObservable()
+        gameProjects = (jsonArray("game_projects")?.toModel<GameProjectEntity>()?.toSet() ?: setOf()).toObservable()
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {
         add("id", id)
         add("name", name)
-        add("game_projects", gameProjects.toJSON())
+        add("game_projects", gameProjects)
     }
 
     override fun equals(other: Any?): Boolean {
