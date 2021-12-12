@@ -1,6 +1,8 @@
 package io.github.tuguzt.sql.presentation.viewmodel
 
 import io.github.tuguzt.sql.presentation.view.RegisterView
+import io.github.tuguzt.sql.repository.model.UserEntity
+import io.github.tuguzt.sql.userAccessToken
 import tornadofx.*
 
 /**
@@ -9,28 +11,16 @@ import tornadofx.*
 class RegisterViewModel : ViewModel() {
     private val api: Rest by inject()
 
-    var name: String by property("")
-    inline val nameProperty get() = getProperty(RegisterViewModel::name)
-
     var username: String by property("")
-    inline val usernameProperty get() = getProperty(RegisterViewModel::username)
+    val usernameProperty get() = getProperty(RegisterViewModel::username)
 
     var password: String by property("")
-    inline val passwordProperty get() = getProperty(RegisterViewModel::password)
-
-    var role: String by property("")
-    inline val roleProperty get() = getProperty(RegisterViewModel::role)
-
-    var organization: String by property("")
-    inline val organizationProperty get() = getProperty(RegisterViewModel::organization)
+    val passwordProperty get() = getProperty(RegisterViewModel::password)
 
     fun submit() {
-        val name = name.trim()
-        val role = role.trim()
-        val organization = organization.trim()
         val username = username.trim()
         val password = password
-        println("name: '$name', role: '$role', organization: '$organization', username: '$username', password: '$password'")
-        TODO("submit register is not implemented")
+        val token = api.post("register", UserEntity(username, password)).text()
+        app.userAccessToken = token
     }
 }

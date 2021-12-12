@@ -30,7 +30,13 @@ class LoginView : View("${FX.messages["login"]} - ${FX.messages["app_name"]}") {
                     buttonbar {
                         button(messages["submit"]) {
                             enableWhen(model.valid)
-                            action(model::submit)
+                            action {
+                                this@vbox.runAsyncWithOverlay {
+                                    model.submit()
+                                } ui {
+                                    replaceWith<MainView>()
+                                }
+                            }
                         }
                     }
                 }
