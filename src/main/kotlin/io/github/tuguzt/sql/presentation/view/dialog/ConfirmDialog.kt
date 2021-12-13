@@ -10,11 +10,7 @@ class ConfirmDialog(title: String, text: String, action: () -> Unit) : Fragment(
             }
             buttonbar {
                 button(messages["yes"]).action {
-                    this@form.runAsyncWithOverlay {
-                        action()
-                    }.ui {
-                        close()
-                    }
+                    this@form.runAsyncWithOverlay(op = action) ui { close() }
                 }
                 button(messages["no"]).action(::close)
             }

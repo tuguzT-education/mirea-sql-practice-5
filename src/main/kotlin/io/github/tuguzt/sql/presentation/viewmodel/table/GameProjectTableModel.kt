@@ -10,13 +10,19 @@ class GameProjectTableModel : ViewModel() {
 
     fun updateAll() {
         val result = api.get("game_projects/all").list().toModel<GameProjectEntity>()
-        entities.clear()
-        entities += result
+        entities.setAll(result)
     }
 
     fun save(entity: GameProjectEntity): GameProjectEntity {
         val result = api.post("game_projects/save", entity).one().toModel<GameProjectEntity>()
-        if (result !in entities) entities += result
+        when (result) {
+            in entities -> {
+                val index = entities.indexOf(result)
+                require(index != -1)
+                entities[index] = result
+            }
+            else -> entities += result
+        }
         return result
     }
 

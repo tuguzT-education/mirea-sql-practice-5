@@ -35,7 +35,6 @@ class GameProjectPlatformEditFragment(private val platformModel: GameProjectPlat
             platformModel.commit()
             tableModel.save(platformModel.item)
         } ui {
-            platformModel.item = it
             close()
         }
     }

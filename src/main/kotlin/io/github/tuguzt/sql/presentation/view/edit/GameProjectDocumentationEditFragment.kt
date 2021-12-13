@@ -5,7 +5,7 @@ import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectDocumentation
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectDocumentationTableModel
 import tornadofx.*
 
-class GameProjectDocumentationEditFragment(private val documentationModel: GameProjectDocumentationModel) :
+class GameProjectDocumentationEditFragment(private val itemModel: GameProjectDocumentationModel) :
     Fragment(FX.messages["edit_game_project_documentation"]) {
 
     private val model: GameProjectDocumentationEditModel by inject()
@@ -14,18 +14,18 @@ class GameProjectDocumentationEditFragment(private val documentationModel: GameP
     override val root = form {
         fieldset {
             field(messages["business_plan"]) {
-                textarea(documentationModel.businessPlan).required()
+                textarea(itemModel.businessPlan).required()
             }
             field(messages["design_document"]) {
-                textarea(documentationModel.designDocument).required()
+                textarea(itemModel.designDocument).required()
             }
             field(messages["vision"]) {
-                textarea(documentationModel.vision).required()
+                textarea(itemModel.vision).required()
             }
             buttonbar {
                 button(messages["submit"]) {
                     enableWhen {
-                        (documentationModel.dirty and documentationModel.valid) or (model.dirty and model.valid)
+                        (itemModel.dirty and itemModel.valid) or (model.dirty and model.valid)
                     }
                     action(::submit)
                 }
@@ -38,16 +38,15 @@ class GameProjectDocumentationEditFragment(private val documentationModel: GameP
 
     private fun submit() {
         root.runAsyncWithOverlay {
-            documentationModel.commit()
-            tableModel.save(documentationModel.item)
+            itemModel.commit()
+            tableModel.save(itemModel.item)
         } ui {
-            documentationModel.item = it
             close()
         }
     }
 
     private fun cancel() {
-        documentationModel.rollback()
+        itemModel.rollback()
         close()
     }
 }

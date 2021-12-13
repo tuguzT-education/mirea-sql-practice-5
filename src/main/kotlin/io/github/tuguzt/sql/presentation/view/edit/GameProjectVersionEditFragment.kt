@@ -4,7 +4,7 @@ import io.github.tuguzt.sql.presentation.viewmodel.edit.GameProjectVersionEditMo
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectVersionModel
 import tornadofx.*
 
-class GameProjectVersionEditFragment(private val versionModel: GameProjectVersionModel) :
+class GameProjectVersionEditFragment(private val itemModel: GameProjectVersionModel) :
     Fragment(FX.messages["edit_game_project_version"]) {
 
     private val model: GameProjectVersionEditModel by inject()
@@ -12,24 +12,24 @@ class GameProjectVersionEditFragment(private val versionModel: GameProjectVersio
     override val root = form {
         fieldset(messages["game_project_version_info"]) {
             field(messages["hash"]) {
-                textfield(versionModel.hash).required()
+                textfield(itemModel.hash).required()
             }
             field(messages["major"]) {
-                textfield(versionModel.major).required()
+                textfield(itemModel.major).required()
             }
             field(messages["minor"]) {
-                textfield(versionModel.minor).required()
+                textfield(itemModel.minor).required()
             }
             field(messages["patch"]) {
-                textfield(versionModel.patch).required()
+                textfield(itemModel.patch).required()
             }
             field(messages["metadata"]) {
-                textfield(versionModel.metadata)
+                textfield(itemModel.metadata)
             }
             buttonbar {
                 button(messages["submit"]) {
                     enableWhen {
-                        (versionModel.dirty and versionModel.valid) or (model.dirty and model.valid)
+                        (itemModel.dirty and itemModel.valid) or (model.dirty and model.valid)
                     }
                     action(::submit)
                 }
@@ -41,12 +41,12 @@ class GameProjectVersionEditFragment(private val versionModel: GameProjectVersio
     }
 
     private fun submit() {
-        versionModel.commit()
+        itemModel.commit()
         close()
     }
 
     private fun cancel() {
-        versionModel.rollback()
+        itemModel.rollback()
         close()
     }
 }

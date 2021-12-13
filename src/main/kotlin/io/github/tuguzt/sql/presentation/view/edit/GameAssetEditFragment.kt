@@ -10,12 +10,12 @@ import tornadofx.*
 import java.io.File
 import java.net.URI
 
-class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(FX.messages["edit_game_asset"]) {
+class GameAssetEditFragment(private val itemModel: GameAssetModel) : Fragment(FX.messages["edit_game_asset"]) {
     private val model: GameAssetEditModel by inject()
     private val assetTypeTableModel: GameAssetTypeTableModel by inject()
 
     init {
-        val string = requireNotNull(assetModel.dataUri.value)
+        val string = requireNotNull(itemModel.dataUri.value)
         val uri = URI(string)
         model.selectedFile = File(uri)
     }
@@ -23,10 +23,10 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
     override val root = form {
         fieldset {
             field(messages["name"]) {
-                textfield(assetModel.name).required()
+                textfield(itemModel.name).required()
             }
             field(messages["description"]) {
-                textarea(assetModel.description).required()
+                textarea(itemModel.description).required()
             }
             field(messages["data"]) {
                 hyperlink(messages["choose_file"]) {
@@ -34,7 +34,7 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
                     model.addValidator(this, model.selectedFileProperty) {
                         if (it == null) error(messages["file_must_be_chosen"]) else null
                     }
-                    assetModel.addValidator(this, assetModel.dataUri) {
+                    itemModel.addValidator(this, itemModel.dataUri) {
                         if (it == null) error(messages["file_must_be_chosen"]) else null
                     }
                 }
@@ -42,13 +42,13 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
                 button(messages["clear"]) {
                     enableWhen(model::valid)
                     action {
-                        assetModel.dataUri.value = null
+                        itemModel.dataUri.value = null
                         model.selectedFile = null
                     }
                 }
             }
             field(messages["type"]) {
-                combobox(assetModel.type, values = assetTypeTableModel.entities) {
+                combobox(itemModel.type, values = assetTypeTableModel.entities) {
                     converter = GameAssetTypeStringConverter
                 }
             }
@@ -56,7 +56,7 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
         buttonbar {
             button(messages["submit"]) {
                 enableWhen {
-                    (assetModel.dirty and assetModel.valid) or (model.dirty and model.valid)
+                    (itemModel.dirty and itemModel.valid) or (model.dirty and model.valid)
                 }
                 action(::submit)
             }
@@ -73,18 +73,18 @@ class GameAssetEditFragment(private val assetModel: GameAssetModel) : Fragment(F
             mode = FileChooserMode.Single,
         ).firstOrNull()
         file?.let {
-            assetModel.dataUri.value = it.toURI().toString()
+            itemModel.dataUri.value = it.toURI().toString()
             model.selectedFile = it
         }
     }
 
     private fun submit() {
-        assetModel.commit()
+        itemModel.commit()
         close()
     }
 
     private fun cancel() {
-        assetModel.rollback()
+        itemModel.rollback()
         close()
     }
 }

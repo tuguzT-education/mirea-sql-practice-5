@@ -10,13 +10,19 @@ class GameAssetTypeTableModel : ViewModel() {
 
     fun updateAll() {
         val result = api.get("game_asset_types/all").list().toModel<GameAssetTypeEntity>()
-        entities.clear()
-        entities += result
+        entities.setAll(result)
     }
 
     fun save(entity: GameAssetTypeEntity): GameAssetTypeEntity {
         val result = api.post("game_asset_types/save", entity).one().toModel<GameAssetTypeEntity>()
-        if (result !in entities) entities += result
+        when (result) {
+            in entities -> {
+                val index = entities.indexOf(result)
+                require(index != -1)
+                entities[index] = result
+            }
+            else -> entities += result
+        }
         return result
     }
 

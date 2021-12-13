@@ -1,7 +1,7 @@
 package io.github.tuguzt.sql
 
+import io.github.tuguzt.sql.presentation.view.LoginView
 import io.github.tuguzt.sql.presentation.view.MainView
-import io.github.tuguzt.sql.presentation.view.RegisterView
 import javafx.stage.Stage
 import tornadofx.*
 
@@ -17,7 +17,7 @@ class Application : App() {
 
     override val primaryView = kotlin.run {
         val isUserFound = !userAccessToken.isNullOrBlank()
-        if (isUserFound) MainView::class else RegisterView::class
+        if (isUserFound) MainView::class else LoginView::class
     }
 
     override fun start(stage: Stage) {

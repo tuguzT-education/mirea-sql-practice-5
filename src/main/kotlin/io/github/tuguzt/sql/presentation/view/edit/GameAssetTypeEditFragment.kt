@@ -5,7 +5,7 @@ import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetTypeModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTypeTableModel
 import tornadofx.*
 
-class GameAssetTypeEditFragment(private val typeModel: GameAssetTypeModel) :
+class GameAssetTypeEditFragment(private val itemModel: GameAssetTypeModel) :
     Fragment(FX.messages["edit_game_asset_type"]) {
 
     private val model: GameAssetTypeEditModel by inject()
@@ -14,12 +14,12 @@ class GameAssetTypeEditFragment(private val typeModel: GameAssetTypeModel) :
     override val root = form {
         fieldset {
             field(messages["name"]) {
-                textfield(typeModel.name).required()
+                textfield(itemModel.name).required()
             }
             buttonbar {
                 button(messages["submit"]) {
                     enableWhen {
-                        (typeModel.dirty and typeModel.valid) or (model.dirty and model.valid)
+                        (itemModel.dirty and itemModel.valid) or (model.dirty and model.valid)
                     }
                     action(::submit)
                 }
@@ -32,16 +32,15 @@ class GameAssetTypeEditFragment(private val typeModel: GameAssetTypeModel) :
 
     private fun submit() {
         root.runAsyncWithOverlay {
-            typeModel.commit()
-            tableModel.save(typeModel.item)
+            itemModel.commit()
+            tableModel.save(itemModel.item)
         } ui {
-            typeModel.item = it
             close()
         }
     }
 
     private fun cancel() {
-        typeModel.rollback()
+        itemModel.rollback()
         close()
     }
 }

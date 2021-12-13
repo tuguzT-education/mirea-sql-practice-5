@@ -2,9 +2,9 @@ package io.github.tuguzt.sql
 
 import tornadofx.App
 
-inline var App.userAccessToken: String?
-    get() = config["user_access_token"] as String?
+var App.userAccessToken: String?
+    get() = config.string("user_access_token")
     set(value) {
-        config["user_access_token"] = value
+        config.set("user_access_token" to value)
         config.save()
     }

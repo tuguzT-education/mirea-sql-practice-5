@@ -32,7 +32,9 @@ configurations.all {
 
 dependencies {
     // Domain layer
-    implementation("com.github.tuguzT:sql_practice_5_domain:main-SNAPSHOT")
+    implementation("com.github.tuguzT:sql_practice_5_domain:main-SNAPSHOT") {
+        isChanging = true
+    }
 
     // Kotlin
     implementation(kotlin("stdlib"))

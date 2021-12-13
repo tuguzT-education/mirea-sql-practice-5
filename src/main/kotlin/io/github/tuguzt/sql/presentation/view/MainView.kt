@@ -17,11 +17,11 @@ class MainView : View(FX.messages["app_name"]) {
                 request.addHeader("Authorization", "Bearer ${app.userAccessToken}")
             }
             responseInterceptor = { response ->
-                if (response.statusCode == 401) {
+                if (response.statusCode == 401 || response.statusCode == 403) {
                     app.userAccessToken = null
                     requestInterceptor = null
                     responseInterceptor = null
-                    TODO("Token expired")
+                    replaceWith<LoginView>()
                 }
             }
         }
