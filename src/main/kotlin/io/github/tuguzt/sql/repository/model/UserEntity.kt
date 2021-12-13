@@ -1,6 +1,5 @@
 package io.github.tuguzt.sql.repository.model
 
-import io.github.tuguzt.sql.ObjectProperty
 import io.github.tuguzt.sql.domain.model.User
 import tornadofx.*
 import javax.json.JsonObject
@@ -10,13 +9,7 @@ class UserEntity(
     passwordEncrypted: String = "",
     officer: OfficerEntity? = null,
     id: Int = 0,
-) : User, JsonModel {
-    private var _id: Int by property(id)
-    override val id get() = _id
-
-    private val _idProperty get() = getProperty(UserEntity::_id)
-    val idProperty: ObjectProperty<Int> get() = _idProperty
-
+) : User, JsonModel, ReadonlyIdEntity<Int>(id) {
     override var login: String by property(login)
     val loginProperty get() = getProperty(UserEntity::login)
 

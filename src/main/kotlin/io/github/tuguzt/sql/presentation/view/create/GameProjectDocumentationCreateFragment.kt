@@ -39,7 +39,6 @@ class GameProjectDocumentationCreateFragment : Fragment(FX.messages["create_game
             model.commit()
             tableModel.save(model.item)
         } ui {
-            model.item = it
             close()
         }
     }

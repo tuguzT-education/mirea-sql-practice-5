@@ -31,7 +31,6 @@ class GameAssetTypeCreateFragment : Fragment(FX.messages["create_game_asset_type
             model.commit()
             tableModel.save(model.item)
         } ui {
-            model.item = it
             close()
         }
     }

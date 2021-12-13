@@ -1,17 +1,10 @@
 package io.github.tuguzt.sql.repository.model
 
-import io.github.tuguzt.sql.ObjectProperty
 import io.github.tuguzt.sql.domain.model.OrganizationType
 import tornadofx.*
 import javax.json.JsonObject
 
-class OrganizationTypeEntity(name: String = "", id: Int = 0) : OrganizationType, JsonModel {
-    private var _id: Int by property(id)
-    override val id get() = _id
-
-    private val _idProperty get() = getProperty(OrganizationTypeEntity::_id)
-    val idProperty: ObjectProperty<Int> get() = _idProperty
-
+class OrganizationTypeEntity(name: String = "", id: Int = 0) : OrganizationType, JsonModel, ReadonlyIdEntity<Int>(id) {
     override var name: String by property(name)
     val nameProperty get() = getProperty(OrganizationTypeEntity::name)
 

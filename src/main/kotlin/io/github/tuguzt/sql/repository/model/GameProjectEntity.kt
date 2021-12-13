@@ -1,6 +1,5 @@
 package io.github.tuguzt.sql.repository.model
 
-import io.github.tuguzt.sql.ObjectProperty
 import io.github.tuguzt.sql.domain.model.GameProject
 import javafx.collections.ObservableSet
 import tornadofx.*
@@ -15,12 +14,7 @@ class GameProjectEntity(
     versions: Set<GameProjectVersionEntity> = setOf(),
     organizations: Set<OrganizationEntity> = setOf(),
     id: Int = 0,
-) : GameProject, JsonModel {
-    private var _id: Int by property(id)
-    override val id get() = _id
-
-    private val _idProperty get() = getProperty(GameProjectEntity::_id)
-    val idProperty: ObjectProperty<Int> get() = _idProperty
+) : GameProject, JsonModel, ReadonlyIdEntity<Int>(id) {
 
     override var name: String by property(name)
     val nameProperty get() = getProperty(GameProjectEntity::name)
