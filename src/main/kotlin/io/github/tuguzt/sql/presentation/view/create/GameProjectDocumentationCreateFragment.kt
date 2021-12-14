@@ -5,14 +5,11 @@ import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectDocumentatio
 import io.github.tuguzt.sql.repository.model.GameProjectDocumentationEntity
 import tornadofx.*
 
-class GameProjectDocumentationCreateFragment : Fragment(FX.messages["create_game_project_documentation"]) {
-    private val tableModel: GameProjectDocumentationTableModel by inject()
-    private val itemModel = GameProjectDocumentationModel(GameProjectDocumentationEntity())
-
-    override val refreshable = itemModel.dirty
-    override val savable = itemModel.dirty and itemModel.valid
-    override val deletable = booleanProperty()
-    override val creatable = booleanProperty()
+class GameProjectDocumentationCreateFragment : EntityCreateFragment<GameProjectDocumentationEntity>(
+    FX.messages["create_game_project_documentation"],
+) {
+    override val tableModel: GameProjectDocumentationTableModel by inject()
+    override val itemModel = GameProjectDocumentationModel(GameProjectDocumentationEntity())
 
     override val root = scrollpane(fitToWidth = true, fitToHeight = true) {
         form {
@@ -27,22 +24,6 @@ class GameProjectDocumentationCreateFragment : Fragment(FX.messages["create_game
                     textarea(itemModel.vision).required()
                 }
             }
-        }
-    }
-
-    override fun onRefresh() {
-        super.onRefresh()
-        itemModel.rollback()
-    }
-
-    override fun onSave() {
-        super.onSave()
-        workspace.root.runAsyncWithOverlay {
-            itemModel.commit()
-            tableModel.save(itemModel.item)
-        } ui {
-            workspace.navigateBack()
-            workspace.viewStack -= this
         }
     }
 }

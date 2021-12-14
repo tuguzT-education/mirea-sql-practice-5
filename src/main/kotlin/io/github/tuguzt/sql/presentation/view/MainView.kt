@@ -1,20 +1,18 @@
 package io.github.tuguzt.sql.presentation.view
 
-import io.github.tuguzt.sql.presentation.view.table.GameAssetTypeTableView
-import io.github.tuguzt.sql.presentation.view.table.GameProjectDocumentationTableView
-import io.github.tuguzt.sql.presentation.view.table.GameProjectPlatformTableView
-import io.github.tuguzt.sql.presentation.view.table.GameProjectTableView
+import javafx.geometry.Pos.CENTER
 import tornadofx.*
 
 /**
  * Main [view][View] of the application.
  */
 class MainView : View(FX.messages["app_name"]) {
-    override val root = tabpane {
-        tab<GameAssetTypeTableView>()
-        tab<GameProjectDocumentationTableView>()
-        tab<GameProjectPlatformTableView>()
-        tab<GameProjectTableView>()
-        connectWorkspaceActions()
+    override val root = vbox(spacing = 8, alignment = CENTER) {
+        button(messages["data_management"]).action {
+            workspace.dock<DataManagementView>()
+        }
+        button(messages["user_page"]).action {
+            workspace.dock<UserView>()
+        }
     }
 }

@@ -13,7 +13,7 @@ class GameAssetTableView : View(FX.messages["game_assets"]) {
     private val model: GameAssetTableModel by inject()
     private val itemModel = GameAssetModel(GameAssetEntity())
 
-    override val root = tableview(model.assets) {
+    override val root = tableview(model.entities) {
         isEditable = true
         setRowFactory {
             TableRow<GameAssetEntity?>().apply {

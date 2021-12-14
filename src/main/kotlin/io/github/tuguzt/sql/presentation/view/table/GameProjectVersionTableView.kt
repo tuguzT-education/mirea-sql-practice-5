@@ -13,7 +13,7 @@ class GameProjectVersionTableView : View(FX.messages["game_project_versions"]) {
     private val model: GameProjectVersionTableModel by inject()
     private val itemModel = GameProjectVersionModel(GameProjectVersionEntity())
 
-    override val root = tableview(model.versions) {
+    override val root = tableview(model.entities) {
         isEditable = true
         setRowFactory {
             TableRow<GameProjectVersionEntity?>().apply {

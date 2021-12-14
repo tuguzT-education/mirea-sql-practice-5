@@ -1,14 +1,18 @@
 package io.github.tuguzt.sql.presentation.viewmodel.table
 
-import tornadofx.*
+import tornadofx.JsonModel
+import tornadofx.Rest
+import tornadofx.ViewModel
+import tornadofx.observableListOf
+import javax.json.JsonArray
 import javax.json.JsonObject
 import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
 
-sealed class EntityTableModel<T : JsonModel>(
-    private val kClass: KClass<out T>,
-    private val pathName: String,
-) : ViewModel() {
+sealed class EntityTableViewModel<T : JsonModel> : ViewModel() {
+    protected abstract val kClass: KClass<out T>
+    protected abstract val pathName: String
+
     @Suppress("MemberVisibilityCanBePrivate")
     protected val api: Rest by inject()
 
@@ -19,15 +23,12 @@ sealed class EntityTableModel<T : JsonModel>(
     }
 
     fun updateAll() {
-        val result = api.get("$pathName/all").list().map {
-            kClass.createInstance().apply { updateModel(it as JsonObject) }
-        }
+        val result = api.get("$pathName/all").list().toModel(kClass)
         entities.setAll(result)
     }
 
     fun save(entity: T): T {
-        val jsonObject = api.post("$pathName/save", entity).one()
-        val result = kClass.createInstance().apply { updateModel(jsonObject) }
+        val result = api.post("$pathName/save", entity).one().toModel(kClass)
         when (result) {
             in entities -> {
                 val index = entities.indexOf(result)
@@ -44,3 +45,9 @@ sealed class EntityTableModel<T : JsonModel>(
         entities -= entity
     }
 }
+
+fun <T : JsonModel> JsonArray.toModel(kClass: KClass<T>) =
+    observableListOf(map { (it as JsonObject).toModel(kClass) })
+
+fun <T : JsonModel> JsonObject.toModel(kClass: KClass<T>): T =
+    kClass.createInstance().apply { updateModel(this@toModel) }

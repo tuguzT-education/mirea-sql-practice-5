@@ -5,14 +5,9 @@ import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTypeTableModel
 import io.github.tuguzt.sql.repository.model.GameAssetTypeEntity
 import tornadofx.*
 
-class GameAssetTypeCreateFragment : Fragment(FX.messages["create_game_asset_type"]) {
-    private val tableModel: GameAssetTypeTableModel by inject()
-    private val itemModel = GameAssetTypeModel(GameAssetTypeEntity())
-
-    override val refreshable = itemModel.dirty
-    override val savable = itemModel.dirty and itemModel.valid
-    override val deletable = booleanProperty()
-    override val creatable = booleanProperty()
+class GameAssetTypeCreateFragment : EntityCreateFragment<GameAssetTypeEntity>(FX.messages["create_game_asset_type"]) {
+    override val tableModel: GameAssetTypeTableModel by inject()
+    override val itemModel = GameAssetTypeModel(GameAssetTypeEntity())
 
     override val root = scrollpane(fitToWidth = true, fitToHeight = true) {
         form {
@@ -21,22 +16,6 @@ class GameAssetTypeCreateFragment : Fragment(FX.messages["create_game_asset_type
                     textfield(itemModel.name).required()
                 }
             }
-        }
-    }
-
-    override fun onRefresh() {
-        super.onRefresh()
-        itemModel.rollback()
-    }
-
-    override fun onSave() {
-        super.onSave()
-        workspace.root.runAsyncWithOverlay {
-            itemModel.commit()
-            tableModel.save(itemModel.item)
-        } ui {
-            workspace.navigateBack()
-            workspace.viewStack -= this
         }
     }
 }
