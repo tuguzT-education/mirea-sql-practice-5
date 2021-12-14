@@ -1,6 +1,8 @@
 package io.github.tuguzt.sql.presentation.view
 
+import io.github.tuguzt.sql.presentation.view.dialog.OkDialog
 import io.github.tuguzt.sql.presentation.viewmodel.RegisterViewModel
+import io.github.tuguzt.sql.setupAuth
 import javafx.geometry.Pos.CENTER
 import tornadofx.*
 
@@ -34,7 +36,15 @@ class RegisterView : View("${FX.messages["register"]} - ${FX.messages["app_name"
                                 this@vbox.runAsyncWithOverlay {
                                     model.submit()
                                 } ui {
-                                    replaceWith<MainView>()
+                                    app.setupAuth()
+                                    find(AppWorkspace::class).dock<MainView>()
+                                    replaceWith<AppWorkspace>()
+                                } fail {
+                                    openInternalWindow(
+                                        OkDialog(messages["wrong_credentials_provided"]),
+                                        closeButton = false,
+                                        movable = false,
+                                    )
                                 }
                             }
                         }

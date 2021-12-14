@@ -5,7 +5,7 @@ import java.io.File
 import java.net.URI
 
 object FileStringConverter : StringConverter<File?>() {
-    override fun toString(file: File?) = file?.name.orEmpty()
+    override fun toString(file: File?) = file?.name
 
     override fun fromString(string: String): File {
         val uri = URI(string)

@@ -9,10 +9,16 @@ class ConfirmDialog(title: String, text: String, action: () -> Unit) : Fragment(
                 label(text)
             }
             buttonbar {
-                button(messages["yes"]).action {
-                    this@form.runAsyncWithOverlay(op = action) ui { close() }
+                button(messages["yes"]) {
+                    action {
+                        this@form.runAsyncWithOverlay(op = action) ui { close() }
+                    }
+                    shortcut("Enter")
                 }
-                button(messages["no"]).action(::close)
+                button(messages["no"]) {
+                    action(::close)
+                    shortcut("Esc")
+                }
             }
         }
     }

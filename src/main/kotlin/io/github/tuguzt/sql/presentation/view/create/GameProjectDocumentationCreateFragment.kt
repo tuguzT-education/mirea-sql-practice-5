@@ -7,39 +7,42 @@ import tornadofx.*
 
 class GameProjectDocumentationCreateFragment : Fragment(FX.messages["create_game_project_documentation"]) {
     private val tableModel: GameProjectDocumentationTableModel by inject()
-    private val model = GameProjectDocumentationModel(GameProjectDocumentationEntity())
+    private val itemModel = GameProjectDocumentationModel(GameProjectDocumentationEntity())
 
-    override val root = form {
-        fieldset {
-            field(messages["business_plan"]) {
-                textarea(model.businessPlan).required()
-            }
-            field(messages["design_document"]) {
-                textarea(model.designDocument).required()
-            }
-            field(messages["vision"]) {
-                textarea(model.vision).required()
-            }
-            buttonbar {
-                button(messages["submit"]) {
-                    enableWhen {
-                        model.dirty and model.valid
-                    }
-                    action(::submit)
+    override val refreshable = itemModel.dirty
+    override val savable = itemModel.dirty and itemModel.valid
+    override val deletable = booleanProperty()
+    override val creatable = booleanProperty()
+
+    override val root = scrollpane(fitToWidth = true, fitToHeight = true) {
+        form {
+            fieldset {
+                field(messages["business_plan"]) {
+                    textarea(itemModel.businessPlan).required()
                 }
-                button(messages["cancel"]) {
-                    action(::close)
+                field(messages["design_document"]) {
+                    textarea(itemModel.designDocument).required()
+                }
+                field(messages["vision"]) {
+                    textarea(itemModel.vision).required()
                 }
             }
         }
     }
 
-    private fun submit() {
-        root.runAsyncWithOverlay {
-            model.commit()
-            tableModel.save(model.item)
+    override fun onRefresh() {
+        super.onRefresh()
+        itemModel.rollback()
+    }
+
+    override fun onSave() {
+        super.onSave()
+        workspace.root.runAsyncWithOverlay {
+            itemModel.commit()
+            tableModel.save(itemModel.item)
         } ui {
-            close()
+            workspace.navigateBack()
+            workspace.viewStack -= this
         }
     }
 }

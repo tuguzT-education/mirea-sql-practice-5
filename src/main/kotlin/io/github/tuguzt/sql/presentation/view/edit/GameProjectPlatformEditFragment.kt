@@ -5,42 +5,43 @@ import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectPlatformModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectPlatformTableModel
 import tornadofx.*
 
-class GameProjectPlatformEditFragment(private val platformModel: GameProjectPlatformModel) :
+class GameProjectPlatformEditFragment(private val itemModel: GameProjectPlatformModel) :
     Fragment(FX.messages["edit_game_project_platform"]) {
 
     private val model: GameProjectPlatformEditModel by inject()
     private val tableModel: GameProjectPlatformTableModel by inject()
 
-    override val root = form {
-        fieldset {
-            field(messages["name"]) {
-                textfield(platformModel.name).required()
-            }
-            buttonbar {
-                button(messages["submit"]) {
-                    enableWhen {
-                        (platformModel.dirty and platformModel.valid) or (model.dirty and model.valid)
-                    }
-                    action(::submit)
+    override val refreshable = itemModel.dirty or model.dirty
+    override val savable = (itemModel.dirty and itemModel.valid) or (model.dirty and model.valid)
+    override val deletable = booleanProperty()
+    override val creatable = booleanProperty()
+
+    override val root = scrollpane(fitToWidth = true, fitToHeight = true) {
+        form {
+            fieldset {
+                field("#") {
+                    label(itemModel.item.id.toString())
                 }
-                button(messages["cancel"]) {
-                    action(::cancel)
+                field(messages["name"]) {
+                    textfield(itemModel.name).required()
                 }
             }
         }
     }
 
-    private fun submit() {
-        root.runAsyncWithOverlay {
-            platformModel.commit()
-            tableModel.save(platformModel.item)
+    override fun onRefresh() {
+        super.onRefresh()
+        itemModel.rollback()
+    }
+
+    override fun onSave() {
+        super.onSave()
+        workspace.root.runAsyncWithOverlay {
+            itemModel.commit()
+            tableModel.save(itemModel.item)
         } ui {
-            close()
+            workspace.navigateBack()
+            workspace.viewStack -= this
         }
-    }
-
-    private fun cancel() {
-        platformModel.rollback()
-        close()
     }
 }

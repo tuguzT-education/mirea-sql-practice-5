@@ -7,31 +7,36 @@ import tornadofx.*
 
 class GameAssetTypeCreateFragment : Fragment(FX.messages["create_game_asset_type"]) {
     private val tableModel: GameAssetTypeTableModel by inject()
-    private val model = GameAssetTypeModel(GameAssetTypeEntity())
+    private val itemModel = GameAssetTypeModel(GameAssetTypeEntity())
 
-    override val root = form {
-        fieldset {
-            field(messages["name"]) {
-                textfield(model.name).required()
-            }
-            buttonbar {
-                button(messages["submit"]) {
-                    enableWhen { model.dirty and model.valid }
-                    action(::submit)
-                }
-                button(messages["cancel"]) {
-                    action(::close)
+    override val refreshable = itemModel.dirty
+    override val savable = itemModel.dirty and itemModel.valid
+    override val deletable = booleanProperty()
+    override val creatable = booleanProperty()
+
+    override val root = scrollpane(fitToWidth = true, fitToHeight = true) {
+        form {
+            fieldset {
+                field(messages["name"]) {
+                    textfield(itemModel.name).required()
                 }
             }
         }
     }
 
-    private fun submit() {
-        root.runAsyncWithOverlay {
-            model.commit()
-            tableModel.save(model.item)
+    override fun onRefresh() {
+        super.onRefresh()
+        itemModel.rollback()
+    }
+
+    override fun onSave() {
+        super.onSave()
+        workspace.root.runAsyncWithOverlay {
+            itemModel.commit()
+            tableModel.save(itemModel.item)
         } ui {
-            close()
+            workspace.navigateBack()
+            workspace.viewStack -= this
         }
     }
 }

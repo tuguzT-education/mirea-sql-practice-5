@@ -11,42 +11,43 @@ class GameProjectDocumentationEditFragment(private val itemModel: GameProjectDoc
     private val model: GameProjectDocumentationEditModel by inject()
     private val tableModel: GameProjectDocumentationTableModel by inject()
 
-    override val root = form {
-        fieldset {
-            field(messages["business_plan"]) {
-                textarea(itemModel.businessPlan).required()
-            }
-            field(messages["design_document"]) {
-                textarea(itemModel.designDocument).required()
-            }
-            field(messages["vision"]) {
-                textarea(itemModel.vision).required()
-            }
-            buttonbar {
-                button(messages["submit"]) {
-                    enableWhen {
-                        (itemModel.dirty and itemModel.valid) or (model.dirty and model.valid)
-                    }
-                    action(::submit)
+    override val refreshable = itemModel.dirty or model.dirty
+    override val savable = (itemModel.dirty and itemModel.valid) or (model.dirty and model.valid)
+    override val deletable = booleanProperty()
+    override val creatable = booleanProperty()
+
+    override val root = scrollpane(fitToWidth = true, fitToHeight = true) {
+        form {
+            fieldset {
+                field("#") {
+                    label(itemModel.item.id.toString())
                 }
-                button(messages["cancel"]) {
-                    action(::cancel)
+                field(messages["business_plan"]) {
+                    textarea(itemModel.businessPlan).required()
+                }
+                field(messages["design_document"]) {
+                    textarea(itemModel.designDocument).required()
+                }
+                field(messages["vision"]) {
+                    textarea(itemModel.vision).required()
                 }
             }
         }
     }
 
-    private fun submit() {
-        root.runAsyncWithOverlay {
+    override fun onRefresh() {
+        super.onRefresh()
+        itemModel.rollback()
+    }
+
+    override fun onSave() {
+        super.onSave()
+        workspace.root.runAsyncWithOverlay {
             itemModel.commit()
             tableModel.save(itemModel.item)
         } ui {
-            close()
+            workspace.navigateBack()
+            workspace.viewStack -= this
         }
-    }
-
-    private fun cancel() {
-        itemModel.rollback()
-        close()
     }
 }
