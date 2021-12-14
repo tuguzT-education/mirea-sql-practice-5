@@ -1,9 +1,6 @@
 package io.github.tuguzt.sql.presentation.viewmodel.table
 
-import tornadofx.JsonModel
-import tornadofx.Rest
-import tornadofx.ViewModel
-import tornadofx.observableListOf
+import tornadofx.*
 import javax.json.JsonArray
 import javax.json.JsonObject
 import kotlin.reflect.KClass
@@ -24,7 +21,7 @@ sealed class EntityTableViewModel<T : JsonModel> : ViewModel() {
 
     fun updateAll() {
         val result = api.get("$pathName/all").list().toModel(kClass)
-        entities.setAll(result)
+        runLater { entities.setAll(result) }
     }
 
     fun save(entity: T): T {

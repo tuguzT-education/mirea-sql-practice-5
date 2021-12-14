@@ -1,9 +1,11 @@
 package io.github.tuguzt.sql.presentation.view.table
 
 import io.github.tuguzt.sql.presentation.empty
+import io.github.tuguzt.sql.presentation.view.create.EntityCreateFragment
 import io.github.tuguzt.sql.presentation.view.create.GameAssetTypeCreateFragment
 import io.github.tuguzt.sql.presentation.view.dialog.ConfirmDialog
 import io.github.tuguzt.sql.presentation.view.dialog.OkDialog
+import io.github.tuguzt.sql.presentation.view.edit.EntityEditFragment
 import io.github.tuguzt.sql.presentation.view.edit.GameAssetTypeEditFragment
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameAssetTypeModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameAssetTypeTableModel
@@ -13,11 +15,12 @@ import javafx.beans.property.SimpleBooleanProperty
 import javafx.scene.control.TableRow
 import tornadofx.*
 
-class GameAssetTypeTableView : View(FX.messages["game_asset_types"]) {
-    private val model: GameAssetTypeTableModel by inject()
-    private val itemModel = GameAssetTypeModel(GameAssetTypeEntity())
+class GameAssetTypeTableView : EntityTableView<GameAssetTypeEntity>(FX.messages["game_asset_types"]) {
+    override val model: GameAssetTypeTableModel by inject()
+    override val itemModel = GameAssetTypeModel(GameAssetTypeEntity())
 
-    override val savable = booleanProperty()
+    override val createFragmentFactory = ::GameAssetTypeCreateFragment
+    override val editFragmentFactory = { GameAssetTypeEditFragment(itemModel) }
 
     override val root = tableview(model.entities) {
         isEditable = true
@@ -40,38 +43,6 @@ class GameAssetTypeTableView : View(FX.messages["game_asset_types"]) {
 
         itemModel.rebindOnChange(this) { selected ->
             item = selected ?: GameAssetTypeEntity()
-        }
-    }
-
-    private fun onEdit() {
-        val view = GameAssetTypeEditFragment(itemModel)
-        workspace.dock(view)
-    }
-
-    override fun onRefresh() {
-        super.onRefresh()
-        workspace.root.runAsyncWithOverlay(op = model::updateAll)
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        val view = GameAssetTypeCreateFragment()
-        workspace.dock(view)
-    }
-
-    override fun onDelete() {
-        super.onDelete()
-        when (val item = root.selectedItem) {
-            null -> {
-                val dialog = OkDialog(messages["item_not_selected"])
-                workspace.openInternalWindow(dialog, movable = false, closeButton = false)
-            }
-            else -> {
-                val title = messages["delete_game_asset_type"]
-                val text = messages["are_you_sure"]
-                val dialog = ConfirmDialog(title, text) { model.delete(item) }
-                workspace.openInternalWindow(dialog, movable = false, closeButton = false)
-            }
         }
     }
 }

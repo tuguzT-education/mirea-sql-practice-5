@@ -5,9 +5,9 @@ import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectDocumentatio
 import io.github.tuguzt.sql.repository.model.GameProjectDocumentationEntity
 import tornadofx.*
 
-class GameProjectDocumentationCreateFragment : EntityCreateFragment<GameProjectDocumentationEntity>(
-    FX.messages["create_game_project_documentation"],
-) {
+class GameProjectDocumentationCreateFragment :
+    EntityCreateFragment<GameProjectDocumentationEntity>(FX.messages["create_game_project_documentation"]) {
+
     override val tableModel: GameProjectDocumentationTableModel by inject()
     override val itemModel = GameProjectDocumentationModel(GameProjectDocumentationEntity())
 

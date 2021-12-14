@@ -12,11 +12,12 @@ import io.github.tuguzt.sql.repository.model.GameProjectPlatformEntity
 import javafx.scene.control.TableRow
 import tornadofx.*
 
-class GameProjectPlatformTableView : View(FX.messages["game_project_platforms"]) {
-    private val model: GameProjectPlatformTableModel by inject()
-    private val itemModel = GameProjectPlatformModel(GameProjectPlatformEntity())
+class GameProjectPlatformTableView : EntityTableView<GameProjectPlatformEntity>(FX.messages["game_project_platforms"]) {
+    override val model: GameProjectPlatformTableModel by inject()
+    override val itemModel = GameProjectPlatformModel(GameProjectPlatformEntity())
 
-    override val savable = booleanProperty()
+    override val createFragmentFactory = ::GameProjectPlatformCreateFragment
+    override val editFragmentFactory = { GameProjectPlatformEditFragment(itemModel) }
 
     override val root = tableview(model.entities) {
         isEditable = true
@@ -39,38 +40,6 @@ class GameProjectPlatformTableView : View(FX.messages["game_project_platforms"])
 
         itemModel.rebindOnChange(this) { selected ->
             item = selected ?: GameProjectPlatformEntity()
-        }
-    }
-
-    fun onEdit() {
-        val view = GameProjectPlatformEditFragment(itemModel)
-        workspace.dock(view)
-    }
-
-    override fun onRefresh() {
-        super.onRefresh()
-        workspace.root.runAsyncWithOverlay(op = model::updateAll)
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        val view = GameProjectPlatformCreateFragment()
-        workspace.dock(view)
-    }
-
-    override fun onDelete() {
-        super.onDelete()
-        when (val item = root.selectedItem) {
-            null -> {
-                val dialog = OkDialog(messages["item_not_selected"])
-                workspace.openInternalWindow(dialog, movable = false, closeButton = false)
-            }
-            else -> {
-                val title = messages["delete_game_project_platform"]
-                val text = messages["are_you_sure"]
-                val confirmDialog = ConfirmDialog(title, text) { model.delete(item) }
-                workspace.openInternalWindow(confirmDialog, movable = false, closeButton = false)
-            }
         }
     }
 }

@@ -3,25 +3,25 @@ package io.github.tuguzt.sql.presentation.view.show
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectVersionModel
 import tornadofx.*
 
-class GameProjectVersionShowFragment(private val versionModel: GameProjectVersionModel) :
+class GameProjectVersionShowFragment(private val itemModel: GameProjectVersionModel) :
     Fragment(FX.messages["game_project_version"]) {
 
     override val root = form {
         fieldset(messages["game_project_version_info"]) {
             field(messages["hash"]) {
-                label(versionModel.hash)
+                label(itemModel.hash)
             }
             field(messages["major"]) {
-                label(versionModel.major)
+                label(itemModel.major)
             }
             field(messages["minor"]) {
-                label(versionModel.minor)
+                label(itemModel.minor)
             }
             field(messages["patch"]) {
-                label(versionModel.patch)
+                label(itemModel.patch)
             }
             field(messages["metadata"]) {
-                label(versionModel.metadata)
+                label(itemModel.metadata)
             }
         }
     }
