@@ -66,10 +66,6 @@ class GameProjectDocumentationTableView : View(FX.messages["game_project_documen
         }
     }
 
-    init {
-        runAsync { model.updateAll() }
-    }
-
     private fun refresh() {
         root.runAsyncWithOverlay(op = model::updateAll)
     }

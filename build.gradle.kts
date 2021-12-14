@@ -47,6 +47,9 @@ dependencies {
 //    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 //    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.5.2")
 
+    // Third-Party
+//    implementation("de.jensd:fontawesomefx-commons:9.1.2")
+
     // Testing
     testImplementation(kotlin("test"))
 }
