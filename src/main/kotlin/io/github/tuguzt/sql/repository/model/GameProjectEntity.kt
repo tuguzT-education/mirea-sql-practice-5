@@ -8,7 +8,7 @@ import javax.json.JsonObject
 class GameProjectEntity(
     name: String = "",
     description: String = "",
-    documentation: GameProjectDocumentationEntity? = null,
+    documentation: GameProjectDocumentationEntity = GameProjectDocumentationEntity(),
     assets: Set<GameAssetEntity> = setOf(),
     platforms: Set<GameProjectPlatformEntity> = setOf(),
     versions: Set<GameProjectVersionEntity> = setOf(),

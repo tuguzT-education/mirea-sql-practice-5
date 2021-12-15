@@ -41,7 +41,7 @@ sealed class EntityTableView<T : JsonModel>(title: String) : View(title) {
                 workspace.openInternalWindow(dialog, movable = false, closeButton = false)
             }
             else -> {
-                val title = messages["delete_game_project_documentation"]
+                val title = messages["delete_element"]
                 val text = messages["are_you_sure"]
                 val confirmDialog = ConfirmDialog(title, text) { model.delete(item) }
                 workspace.openInternalWindow(confirmDialog, movable = false, closeButton = false)

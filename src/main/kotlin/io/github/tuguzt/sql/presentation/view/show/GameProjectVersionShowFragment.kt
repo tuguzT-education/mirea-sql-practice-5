@@ -1,5 +1,6 @@
 package io.github.tuguzt.sql.presentation.view.show
 
+import io.github.tuguzt.sql.presentation.view.converter.GameProjectStringConverter
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectVersionModel
 import tornadofx.*
 
@@ -22,6 +23,9 @@ class GameProjectVersionShowFragment(private val itemModel: GameProjectVersionMo
             }
             field(messages["metadata"]) {
                 label(itemModel.metadata)
+            }
+            field(messages["game_project"]) {
+                label(itemModel.gameProject, converter = GameProjectStringConverter)
             }
         }
     }

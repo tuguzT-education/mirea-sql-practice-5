@@ -9,6 +9,7 @@ class DataManagementView : View(FX.messages["data_management"]) {
         tab<GameProjectDocumentationTableView>()
         tab<GameProjectPlatformTableView>()
         tab<GameProjectTableView>()
+        tab<GameProjectVersionTableView>()
         connectWorkspaceActions()
     }
 }

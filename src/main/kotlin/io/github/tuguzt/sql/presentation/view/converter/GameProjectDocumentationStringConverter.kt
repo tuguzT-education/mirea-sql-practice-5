@@ -6,7 +6,7 @@ import tornadofx.*
 
 object GameProjectDocumentationStringConverter : StringConverter<GameProjectDocumentationEntity?>() {
     override fun toString(entity: GameProjectDocumentationEntity?) =
-        entity?.let { "${FX.messages["documentation"]} #${it.id}" }.orEmpty()
+        if (entity == null || entity.id == 0) "" else "${FX.messages["documentation"]} #${entity.id}"
 
     override fun fromString(string: String?) = TODO("unknown id")
 }

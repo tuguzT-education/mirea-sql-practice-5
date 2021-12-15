@@ -32,14 +32,15 @@ class GameProjectVersionEntity(
     override var gameProject: GameProjectEntity by property(gameProject)
     val gameProjectProperty get() = getProperty(GameProjectVersionEntity::gameProject)
 
-    override fun updateModel(json: JsonObject) = with(json) {
+    override fun updateModel(json: JsonObject): Unit = with(json) {
         _id = requireNotNull(int("id"))
         hash = requireNotNull(string("hash"))
         major = requireNotNull(int("major"))
         minor = requireNotNull(int("minor"))
         patch = requireNotNull(int("patch"))
         metadata = requireNotNull(string("metadata"))
-        gameProject = requireNotNull(jsonModel("game_project"))
+        val newGameProject = jsonModel<GameProjectEntity>("game_project")
+        if (newGameProject != null && newGameProject.id != 0) gameProject = newGameProject
     }
 
     override fun toJSON(json: JsonBuilder): Unit = with(json) {

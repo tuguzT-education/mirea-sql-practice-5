@@ -1,5 +1,6 @@
 package io.github.tuguzt.sql.presentation.view.show
 
+import io.github.tuguzt.sql.presentation.view.converter.GameProjectDocumentationStringConverter
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectModel
 import tornadofx.*
 
@@ -13,9 +14,7 @@ class GameProjectShowFragment(private val itemModel: GameProjectModel) : Fragmen
                 text(itemModel.description)
             }
             field(messages["documentation"]) {
-                hyperlink(itemModel.documentation.toString()) {
-                    action { TODO() }
-                }
+                label(itemModel.documentation, converter = GameProjectDocumentationStringConverter)
             }
         }
     }

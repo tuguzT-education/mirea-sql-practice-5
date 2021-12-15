@@ -21,8 +21,13 @@ sealed class EntityTableViewModel<T : JsonModel> : ViewModel() {
 
     fun updateAll() {
         val result = api.get("$pathName/all").list().toModel(kClass)
-        runLater { entities.setAll(result) }
+        runLater {
+            handleResult(result)
+            entities.setAll(result)
+        }
     }
+
+    open fun handleResult(result: List<T>) = Unit
 
     fun save(entity: T): T {
         val result = api.post("$pathName/save", entity).one().toModel(kClass)
@@ -33,6 +38,9 @@ sealed class EntityTableViewModel<T : JsonModel> : ViewModel() {
                 entities[index] = result
             }
             else -> entities += result
+        }
+        runLater {
+            handleResult(listOf(result))
         }
         return result
     }

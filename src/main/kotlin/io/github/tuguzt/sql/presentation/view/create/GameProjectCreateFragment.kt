@@ -1,6 +1,7 @@
 package io.github.tuguzt.sql.presentation.view.create
 
 import io.github.tuguzt.sql.presentation.view.converter.GameProjectDocumentationStringConverter
+import io.github.tuguzt.sql.presentation.view.entityRequired
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectDocumentationTableModel
 import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectTableModel
@@ -25,7 +26,7 @@ class GameProjectCreateFragment : EntityCreateFragment<GameProjectEntity>(FX.mes
                 field(messages["documentation"]) {
                     combobox(itemModel.documentation, values = documentationTableModel.entities) {
                         converter = GameProjectDocumentationStringConverter
-                        required()
+                        entityRequired()
                     }
                 }
             }

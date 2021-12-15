@@ -1,16 +1,27 @@
 package io.github.tuguzt.sql.presentation.view.edit
 
+import io.github.tuguzt.sql.presentation.view.converter.GameProjectStringConverter
+import io.github.tuguzt.sql.presentation.view.entityRequired
 import io.github.tuguzt.sql.presentation.viewmodel.edit.GameProjectVersionEditModel
 import io.github.tuguzt.sql.presentation.viewmodel.item.GameProjectVersionModel
+import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectTableModel
+import io.github.tuguzt.sql.presentation.viewmodel.table.GameProjectVersionTableModel
+import io.github.tuguzt.sql.repository.model.GameProjectVersionEntity
 import tornadofx.*
 
-class GameProjectVersionEditFragment(private val itemModel: GameProjectVersionModel) :
-    Fragment(FX.messages["edit_game_project_version"]) {
+class GameProjectVersionEditFragment(override val itemModel: GameProjectVersionModel) :
+    EntityEditFragment<GameProjectVersionEntity>(FX.messages["edit_game_project_version"]) {
 
-    private val model: GameProjectVersionEditModel by inject()
+    override val model: GameProjectVersionEditModel by inject()
+    override val tableModel: GameProjectVersionTableModel by inject()
+
+    private val gameProjectTableModel: GameProjectTableModel by inject()
 
     override val root = form {
-        fieldset(messages["game_project_version_info"]) {
+        fieldset {
+            field("#") {
+                label(itemModel.item.id.toString())
+            }
             field(messages["hash"]) {
                 textfield(itemModel.hash).required()
             }
@@ -26,27 +37,12 @@ class GameProjectVersionEditFragment(private val itemModel: GameProjectVersionMo
             field(messages["metadata"]) {
                 textfield(itemModel.metadata)
             }
-            buttonbar {
-                button(messages["submit"]) {
-                    enableWhen {
-                        (itemModel.dirty and itemModel.valid) or (model.dirty and model.valid)
-                    }
-                    action(::submit)
-                }
-                button(messages["cancel"]) {
-                    action(::cancel)
+            field(messages["game_project"]) {
+                combobox(itemModel.gameProject, values = gameProjectTableModel.entities) {
+                    converter = GameProjectStringConverter
+                    entityRequired()
                 }
             }
         }
-    }
-
-    private fun submit() {
-        itemModel.commit()
-        close()
-    }
-
-    private fun cancel() {
-        itemModel.rollback()
-        close()
     }
 }
